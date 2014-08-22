@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, minimum-scale=0.4, maximum-scale=0.4, minimal-ui" />
+	
+	<meta name="author" content="">
+	<title>Google Map for iOS</title>
+
+	<!-- Styles from College Admissions site -->
+
+	<link rel="stylesheet" href="css/blocks.css" />
+	<link rel="stylesheet" href="css/blog.css" />
+	<link rel="stylesheet" href="css/fonts.css" />
+	<link rel="stylesheet" href="css/structure.css" />
+	<link rel="stylesheet" href="css/site_sections.css" />
+	<link rel="stylesheet" href="css/tables.css" />
+	<link rel="stylesheet" href="css/widgets.css" />
+	<link rel="stylesheet" href="css/buttons.css" />
+	<link rel="stylesheet" href="css/colorbox.css" />
+	<link rel="stylesheet" href="css/modules.css" />
+	<link rel="stylesheet" href="css/base_styles.css" />
+	<link rel="stylesheet" href="css/colorbox.css" />
+	<link rel="stylesheet" href="css/features.css" />
+	<link rel="stylesheet" href="css/nav.css" />
+	<link rel="stylesheet" href="css/views.css" />
+	<link rel="stylesheet" href="css/viewchicago.css" />
+	<link rel="stylesheet" href="css/maps_core.css" />
+	<link rel="stylesheet" href="css/responsive.css" />
+	<link rel="stylesheet" href="css/admit.css" />
+	<link rel="stylesheet" href="css/ie.css" />
+	<link rel="stylesheet" href="css/modals.css" />
+	<link rel="stylesheet" href="css/print.css" />
+
+	<!-- Custom styles for this template -->
+
+	<link href="css/map.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+      <style>
+		/* This only works with JavaScript, 
+		if it's not present, don't show loader */
+		#loader { display: block; position: absolute; z-index: 3;}
+	</style>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATUF6mOF6zWfNQK_oHhgJ3PMC44CGhA84&sensor=FALSE">
+</script>
+<script type='text/javascript' src="js/infobox.js"></script>
+<script type='text/javascript' src="js/JQuery.tubeplayer.min.js"></script>
+<script type='text/javascript' src="js/jquery.cycle2.min.js"></script>
+<script type='text/javascript' src="js/jquery.cycle2.swipe.min.js"></script>
+
+<script type="text/javascript">
+
+		//
+		// Loading and Initializing
+		//
+		
+		function initialize() {
+
+            // Load all initial variables
+            $.getScript( "js/load.js", function( data, textStatus, jqxhr ) {
+            	loadStopJSON(stop_json_url);
+            	loadPathJSON(path_json_url);
+            	var styledMapOptions = {
+            		name: 'Custom Style'
+            	};
+
+            	var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
+            	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+            	map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+
+            	main_controls = document.getElementById("main-controls-container");
+            	display_container = document.getElementById("display-container");
+            	video_display = document.getElementById('video-display');
+            	image_display = document.getElementById('image-display');
+            	info_display = document.getElementById('info-display');
+            	slideShow = document.getElementById("cycle-slideshow-div");
+
+                // Only enable navigation if user is mobile
+                if (USER_IS_MOBILE) {
+                	if (navigator.geolocation) {
+                		navigator.geolocation.getCurrentPosition(displayAndWatchCurrentLocation, null, geo_options);
+                	} else {
+                		return
+                	}
+                }
+                
+                // If map is clicked, deselect and clear clickedInfoBox
+                google.maps.event.addListener(map, "click", function(){
+                	
+
+                	if (DISPLAY_STATE == true) {
+                		display_container.style["display"] = "none";
+                		DISPLAY_STATE = false;
+                	}
+                	updateSelectedMarker(null);
+                });
+                
+                // Load TubePlayer
+                jQuery("#youtube-player-container").tubeplayer({
+                    initialVideo: "t5n0Hpa_CMA", // the video that is loaded into the player
+                    preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
+                });
+                
+                // Set initial marker
+                google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+                	loadStopMarkers(stop_data);
+                	loadPath(path_data);
+                	updateSelectedMarker(STOP_MARKERS[0]);
+                	showTourPath();
+                	if (!USER_IS_MOBILE) {
+                    // Default behavior is to show video on Desktop
+                    updateVideoDisplay();
+                }
+                clearLoadScreen()
+                
+            });
+
+            });
+
+function clearLoadScreen() { 
+	$("#loader").fadeOut(2000)
+}
+}
+
+function loadStopJSON(json_url) {
+	$.getJSON(json_url, function(json){
+		stop_data = json;
+	});
+}
+
+function loadPathJSON(json_url) {
+	$.getJSON(json_url, function(json){
+		path_data = json;
+	});
+}
+
+function loadStopMarkers(stop_data) {
+	for (var i = 0, length = stop_data.length; i < length; i++) {
+		makeStopMarker(stop_data[i].marker.title, stop_data[i].marker.description, stop_data[i].marker.lat, stop_data[i].marker.lng, icons.unselected);
+	}
+}
+
+function loadPath(path_data) {
+	for (var i = 0, length = path_data.length; i < length; i++) {
+		PATHS.push(new google.maps.LatLng(path_data[i].lat, path_data[i].lng));
+	}
+}
+
+function showTourPath() {
+	var lineSymbol = {
+		path: 'M 0,-1 0,1',
+		strokeOpacity: .5,
+		scale: 3
+	};
+	var tourPath = new google.maps.Polyline({
+		path: PATHS,
+		strokeOpacity: 0,
+		icons: [{
+			icon: lineSymbol,
+			offset: '0',
+			repeat: '10px'
+		}],
+		map: map
+	});
+	tourPath.setMap(map);
+}
+
+function hideTourPath() {
+	tourPath.setMap(null);
+}	
+
+		//
+		// Navigation Controls
+		//
+		
+		function increaseZoom() {
+			map.setZoom(map.getZoom()+1);
+		}
+		
+		function decreaseZoom() {
+			map.setZoom(map.getZoom()-1);
+		}
+		
+		//
+		// Marker Management
+		//
+		
+		// Abstract function for creating a marker
+		function makeMarker(position, icon, title) {
+			var marker = new google.maps.Marker({
+				position: position,
+				map: map,
+				icon: icon,
+				title: title
+			});
+			return marker;
+		}
+		
+		
+		// Abstract fucntion for setting the location of a marker
+		function setMarkerPosition(marker, position) {
+			marker.setPosition(
+				new google.maps.LatLng(
+					position.coords.latitude,
+					position.coords.longitude
+					));
+		}
+		
+		// Specific Function for creating a marker for a Tour Stop
+		function makeStopMarker(title, description, lat, lng, icon) {
+			// Create a marker
+			var position = new google.maps.LatLng(lat,lng);
+			var marker = makeMarker(position, icon, title);
+			marker.html = "<span class='info-title'>"+marker.title+"</span><br /><span class='info-description'>"+description+"</span>";
+			// Set the content for this marker's infoBox
+			var boxText = document.createElement("div");
+			boxText.innerHTML = "<span class='info-title'>"+marker.title+"</span><br /><span class='info-description'>"+description+"</span>";
+			
+			google.maps.event.addListener(marker, 'click', function() {
+				updateSelectedMarker(marker);
+			});
+			// We don't want hover on touch-devices
+			if (!USER_IS_MOBILE) {
+				google.maps.event.addListener(marker, 'mouseover', function() {
+					updateMouseoverInfoBox(marker, "on");
+				});
+				google.maps.event.addListener(marker, 'mouseout', function() {
+					updateMouseoverInfoBox(marker, "off");
+				});
+			}
+			
+			//Add the marker to the list of stops
+			STOP_MARKERS.push(marker);
+		}
+		
+		function setCurrentLocationMarker(pos) {
+			var me = new google.maps.LatLng(
+				pos.coords.latitude,
+				pos.coords.longitude
+				);
+			currentLocationMarker = new google.maps.Marker({
+				position: me,
+				map: map,
+				icon: icons.current,
+				title: "Current Position"
+			});
+			CURRENT_ORIGIN = me;
+		}
+		
+		// Fucntion for changing the selected Marker 
+		function updateSelectedMarker(marker) {
+
+			// If there is a marker already selected, unselect it.
+			if (SELECTED_MARKER != null) {
+				SELECTED_MARKER.setIcon(icons.unselected);
+			}
+			
+			// If actual marker is passed to funciton
+			if (marker != null) {
+				SELECTED_MARKER = marker;
+				marker.setIcon(icons.selected);
+				panToMarker(marker);
+				updateClickInfoBox(marker);
+				ctrlEngaged();
+				
+				if (DISPLAY_STATE == true){
+					updateDisplay();
+
+				}
+			}
+			
+			// If null is passed
+			if (marker == null) {
+				SELECTED_MARKER = null;
+				updateClickInfoBox(null);
+				togBtn();
+				ctrlDisengaged();
+
+
+			}	
+			
+		}
+		
+		function nextMarker(marker) {
+			var index = STOP_MARKERS.indexOf(marker);
+			if ( index >= 0 && index < (STOP_MARKERS.length - 1)) {
+				var nextMarker = STOP_MARKERS[index +1];
+			}
+			// If at the end, loop to beginning
+			if ( index == STOP_MARKERS.length - 1) {
+				var nextMarker = STOP_MARKERS[0];
+			}
+			updateSelectedMarker(nextMarker);
+		}
+		
+		function previousMarker(marker) {
+			var index = STOP_MARKERS.indexOf(marker);
+			if ( index <= (STOP_MARKERS.length -1) && index > 0) {
+				var previousMarker = STOP_MARKERS[index -1];
+			}
+			// If at the beginning, loop to end
+			if ( index == 0 ) {
+				var previousMarker = STOP_MARKERS[STOP_MARKERS.length - 1];
+			}
+			updateSelectedMarker(previousMarker);
+		}
+		
+		
+		
+		function hideStopMarkers() {
+			for (var i = 0; i < STOP_MARKERS.length; i++) {
+				STOP_MARKERS[i].setMap(null);
+			}
+		}
+		
+		function showStopMarkers() {
+			for (var i = 0; i < STOP_MARKERS.length; i++) {
+				STOP_MARKERS[i].setMap(map);
+			}
+		}
+		
+		function hideDirectionMarkers() {
+			for (var i = 0; i < DIRECTION_MARKERS.length; i++) {
+				DIRECTION_MARKERS[i].setMap(null);
+			}
+		}
+		
+		function clearDirectionMarkers() {
+			hideDirectionMarkers();
+			DIRECTION_MARKERS = [];
+		}
+		
+		function showDirectionMarkers() {
+			for (var i = 0; i < DIRECTION_MARKERS.length; i++) {
+				DIRECTION_MARKERS[i].setMap(map);
+			}
+		}
+		
+		//
+		// InfoBox Management
+		//
+		
+		function updateClickInfoBox(marker) {
+			//Close previous ClickInfoBox
+			clickInfoBox.close();
+
+            //If functin is passed an actual marker, update to it
+            if (marker != null){
+            	clickInfoBox.setContent(marker.html);
+            	clickInfoBox.open(map, marker)
+            }
+        }
+
+        function updateMouseoverInfoBox(marker, state) {
+        	if (state == "on"){
+        		mouseoverInfoBox.setContent(marker.html);
+        		mouseoverInfoBox.open(map, marker)
+        	}
+        	if (state == "off"){
+        		mouseoverInfoBox.close()
+        	}
+        }
+
+		//
+		// GeoLocation Management
+		//
+
+		function watchCurrentLocation() {
+			var positionTimer = navigator.geolocation.watchPosition(
+				function (position) {
+					setMarkerPosition(
+						currentLocationMarker,
+						position
+						);
+					var me = new google.maps.LatLng(
+						position.coords.latitude,
+						position.coords.longitude
+						);
+					CURRENT_ORIGIN = me;
+				});
+		}
+		
+		function displayAndWatchCurrentLocation(position) {
+			if (bounds.contains(new google.maps.LatLng(position.coords.latitude, position.coords.longitude)) == true){
+				setCurrentLocationMarker(position);
+				watchCurrentLocation();
+			}
+			else {
+				null;
+			}
+		}
+		
+		//
+		// Control Panel Managmenet
+		//
+
+
+		function togBtn(){
+			var toggleBtn = document.getElementById('toggle-button');
+			if (DISPLAY_STATE == true) {
+				toggleBtn.className = "";
+			}
+			if (DISPLAY_STATE == false) {
+				toggleBtn.className = "toggle-open";
+			}
+		}
+
+		function ctrlEngaged(){
+			var controlEng = document.getElementById('control-bar-menu');
+			controlEng.className = "engaged";
+		}
+		function ctrlDisengaged(){
+			var controlEng = document.getElementById('control-bar-menu');
+			controlEng.className = "";
+		}
+
+		function videoActive(){
+			$('#control-bar-menu > li > a').removeClass('active');
+			$($('#video-btn > a').addClass('active'));
+		}
+		function imageActive(){
+			$('#control-bar-menu > li > a').removeClass('active');
+			$($('#image-btn > a').addClass('active'));
+		}
+		function infoActive(){
+			$('#control-bar-menu > li > a').removeClass('active');
+			$($('#info-btn > a').addClass('active'));
+		}
+
+		function showMainControls() {
+			main_controls.style["visibility"] = "visible";
+		}
+		
+		function hideMainControls() {
+			main_controls.style["visibility"] = "hidden";
+		}
+		
+		function toggleDisplay() {
+			
+			if (DISPLAY_STATE == false) {
+				display_container.style["display"] = "inherit";
+				DISPLAY_STATE = true;
+				togBtn();
+				return;
+			}
+			if (DISPLAY_STATE == true) {
+				display_container.style["display"] = "none";
+				DISPLAY_STATE = false;
+				togBtn();
+				return;
+			}
+		}
+		
+		function updateDisplay() {
+
+			if (CURRENT_DISPLAY == info_display) {
+				updateInfoDisplay();
+
+			}
+			if (CURRENT_DISPLAY == image_display) {
+				updateImageDisplay();
+			}
+			if (CURRENT_DISPLAY == video_display) {
+				updateVideoDisplay();
+			} 
+		}
+
+		function updateVideoDisplay() {
+
+			if (SELECTED_MARKER != null) {
+				var index = STOP_MARKERS.indexOf(SELECTED_MARKER);
+				jQuery("#youtube-player-container").tubeplayer("cue", stop_data[index].video);
+				setDisplay(video_display);
+				togBtn();
+				videoActive();
+			}
+		}
+		
+		function updateImageDisplay() {
+
+			if (SELECTED_MARKER != null) {
+				var index = STOP_MARKERS.indexOf(SELECTED_MARKER);
+				while (slideShow.firstChild) {
+				    console.log('remove!');
+                    slideShow.removeChild(slideShow.firstChild);
+                }
+				$(slideShow).cycle('reinit');
+				for (var i = 0; i < stop_data[index].images.length; i++) {
+					var newSlide = document.createElement("img");
+					newSlide.src = stop_data[index].images[i].image_url;
+					$(slideShow).cycle('add', newSlide);
+				}
+				setDisplay(image_display);
+				togBtn();
+				imageActive();
+
+
+			}
+		}
+		
+		function updateInfoDisplay() {
+
+			if (SELECTED_MARKER != null) {
+				var index = STOP_MARKERS.indexOf(SELECTED_MARKER);
+				info_display.innerHTML = "<p>"+stop_data[index].info+"</p>";
+				setDisplay(info_display);
+				togBtn();
+				infoActive();
+
+			}
+		}
+		
+		function setDisplay(display_mode) {
+			if (DISPLAY_STATE == false) {
+				display_container.style["display"] = "inherit";
+				DISPLAY_STATE = true;
+			}
+			info_display.style["display"] = "none";
+			image_display.style["display"] = "none";
+			video_display.style["display"] = "none";
+			
+			display_mode.style["display"] = "inherit";
+			CURRENT_DISPLAY = display_mode;
+
+		}
+		
+		function panToMarker(marker) {
+			//If the top bar is open, should pan to under. If not, should pan to center.
+			//Offset target Latlng point by 1/4 of the height of the viewport
+			map.panTo(offsetLatlng(marker.position,0,(-($("#map-container").height()/4))));
+		}
+		
+		//Function used to offset target Latlng by pixels
+		function offsetLatlng(targetlatlng,offsetxpixels,offsetypixels) {
+
+			// latlng is the apparent centre-point
+			// offsetx is the distance you want that point to move to the right, in pixels
+			// offsety is the distance you want that point to move upwards, in pixels
+			// offset can be negative
+			// offsetx and offsety are both optional
+			
+			var scale = Math.pow(2, map.getZoom());
+			var nw = new google.maps.LatLng(
+				map.getBounds().getNorthEast().lat(),
+				map.getBounds().getSouthWest().lng()
+				);
+			
+			var worldCoordinateCenter = map.getProjection().fromLatLngToPoint(targetlatlng);
+			var pixelOffset = new google.maps.Point((offsetxpixels/scale) || 0,(offsetypixels/scale) ||0)
+			
+			var worldCoordinateNewCenter = new google.maps.Point(
+				worldCoordinateCenter.x - pixelOffset.x,
+				worldCoordinateCenter.y + pixelOffset.y
+				);
+			
+			var newLatlng = map.getProjection().fromPointToLatLng(worldCoordinateNewCenter);
+			
+			return newLatlng;
+		}
+		
+		google.maps.event.addDomListener(window, 'load', initialize);
+
+	</script>
+</head>
+
+<body>	
+	<div id="map-container">
+		<img src="http://jimpunk.net/Loading/wp-content/uploads/loading1.gif" width="100%" height="100%" id="loader">
+		<div id="map-controls">
+			<div id="main-controls-container">
+				<div id="control-bar">
+					<div id="control-bar-button-container">
+						<ul id="control-bar-menu" class="">
+
+							<li id="video-btn" class="media"><a class="shadow" onclick="updateVideoDisplay()"><img src="images/video.png" class="control-bar-button display-button"/></a></li>
+
+							<li id="image-btn" class="media"><a class="shadow" onclick="updateImageDisplay()"><img src="images/image.png" class="control-bar-button display-button"/></a></li>
+
+							<li id="info-btn" class="media"id="info-button"><a class="shadow" onclick="updateInfoDisplay()"><img src="images/info.png" class="control-bar-button display-button"/></a></li>
+
+							<li class="locale"><a class="shadow" onclick="previousMarker(SELECTED_MARKER)"><img src="images/previous.png" class="control-bar-button navigation-button"/></a></li>
+
+							<li class="locale" id="next-button"><a class="shadow" onclick="nextMarker(SELECTED_MARKER)"><img src="images/next.png" class="control-bar-button navigation-button"/></a></li>
+
+							<li id="toggle-button"><a class="shadow" onclick="toggleDisplay()"><img src="images/toggle_up.png" class="control-bar-button toggle-button"/></a></li>
+						</ul>
+					</div>
+
+				</div>
+				<div id="display-container">
+					<div id="video-display">
+						<div id='youtube-player-container'></div>
+					</div>
+					<div id="image-display">
+    					<div class="cycle-slideshow" id="cycle-slideshow-div" data-cycle-fx="scrollHorz" data-cycle-loader="true" data-cycle-timeout="0" data-cycle-swipe="true" data-cycle-swipe-fx="scrollHorz" data-cycle-prev=".prev" data-cycle-next=".next" data-cycle-log="false"></div>
+    					<div class="prev">Previous</div><br />
+    					<div class="next">Next</div>
+					</div>
+					<div id="info-display"></div>
+				</div>
+			</div>
+			<div id="zoom-controls">
+			<ul>
+				<li><a onclick="increaseZoom()"><img src="images/plus_button.png" /></a><
+				<li><a onclick="decreaseZoom()"><img src="images/minus_button.png" /></a><
+			</ul>
+			</div>
+		</div>
+		<div id="map-canvas"/>
+	</div>
+</body>
+</html>

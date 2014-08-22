@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+s
+<script type="text/javascript">
+function cat() {
+	console.log('cat');
+}
+
+$.getJSON("../json/tour.json", function(data){
+	for (var i = 0, length = data.length; i < length; i++) {
+		document.write("Name: " + data[i].marker.title + "<br />");
+		document.write("Description: " + data[i].marker.description + "<br />");
+		document.write("Lat: " + data[i].marker.lat + "<br />");
+		document.write("Lng: " + data[i].marker.lng + "<br />");
+		document.write("Information: " + data[i].info + "<br />");
+		document.write("<img src="+data[i].photos[0].photo_url+" /><br /><br />	");
+	}
+});
+	
+</script>
+</body>
+</html>
