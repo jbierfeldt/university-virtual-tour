@@ -54,7 +54,7 @@
 
 }
 
-#toggle-button.toggle-open img {
+#toggle-btn.toggle-open img {
 	transform:rotate(180deg);
 -ms-transform:rotate(180deg); /* IE 9 */
 -webkit-transform:rotate(180deg); /* Opera, Chrome, and Safari */

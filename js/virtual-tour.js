@@ -17,8 +17,10 @@ VT.settings = function () {
 
 VT.loader = function () {
 	return {
+		stop_data: new Array(),
 		init: function() {
 			VT.settings.init();
+			VT.displayManager.init();
 			VT.mapManager.init();
 			VT.markerManager.init();
 			VT.locationServices.init();
@@ -281,6 +283,8 @@ VT.stopManager = function ($) {
             if (request.status >= 200 && request.status < 400) {
                 // After loading, set the Tour Data to the parsed JSON data
                 stop_json_data = JSON.parse(request.responseText);
+                // Save stop data to loader module for use by displayManager
+                VT.loader.stop_data = stop_json_data;
                 loadStopMarkers(stop_json_data);
             } else {
                 alert("Tour JSON error.")
@@ -340,11 +344,19 @@ VT.stopManager = function ($) {
 			marker.setIcon(VT.markerManager.getIcon("selected"));
 			VT.mapManager.panToMarker(marker);
 			VT.infoBoxManager.updateClickInfoBox(marker);
+			VT.displayManager.engageControls();
+
+			// If the display is active, refresh it on new marker selection
+			if (VT.displayManager.display_state == true) {
+				VT.displayManager.updateDisplay();
+			}
 		}
 
 		if (marker == null) {
 			VT.stopManager.selected_marker = null;
 			VT.infoBoxManager.updateClickInfoBox(null);
+			VT.displayManager.toggleButton();
+			VT.displayManager.disengageControls();
 		}
 	};
 
@@ -593,10 +605,9 @@ VT.mapManager = function () {
 
 	addClickEvents = function () {
 		google.maps.event.addListener(VT.mapManager.map, "click", function() {
-           	// if (DISPLAY_STATE == true) {
-            // 	display_container.style["display"] = "none";
-            // 	DISPLAY_STATE = false;
-            // }
+			// Close Display
+           	VT.displayManager.closeDisplay();
+           	// Unselect Markers
             VT.stopManager.updateSelectedMarker(null);
             });
 	};
@@ -621,4 +632,208 @@ VT.mapManager = function () {
             console.log("loaded mapManager");
         }
     };
+}();
+
+VT.displayManager = function () {
+	var getElements, toggleDisplay, closeDisplay, setDisplay, updateDisplay, updateVideoDisplay,
+	updateImageDisplay, updateInfoDisplay, toggleButton, engageControls, disengageControls, 
+	addClickEvents, map_container, main_controls, display_controls, video_display,
+	image_display, info_display, youtube_player, slideShow, toggle_button, control_engagement;
+
+	getElements = function () {
+		map_container = document.getElementById("map-container");
+		main_controls = document.getElementById("main-controls-container");
+        display_container = document.getElementById("display-container");
+        video_display = document.getElementById('video-display');
+        image_display = document.getElementById('image-display');
+        info_display = document.getElementById('info-display');
+        youtube_player = document.getElementById('youtube-player-container');
+        slideShow = document.getElementById("cycle-slideshow-div");
+        toggle_button = document.getElementById("toggle-btn");
+        control_engagement = document.getElementById('control-bar-menu');
+	};
+
+	toggleDisplay = function () {
+		if (VT.displayManager.display_state == false) {
+			display_container.style["display"] = "inherit";
+			VT.displayManager.display_state = true;
+			toggleButton();
+			return;
+		}
+		if  (VT.displayManager.display_state == true) {
+			display_container.style["display"] = "none";
+			VT.displayManager.display_state = false;
+			toggleButton();
+			return;
+		}
+	};
+
+	closeDisplay = function () {
+		display_container.style["display"] = "none";
+		VT.displayManager.display_state = false;
+	};
+
+	setDisplay = function(display_mode) {
+		if (VT.displayManager.display_state == false) {
+			display_container.style["display"] = "inherit";
+			VT.displayManager.display_state = true;
+		}
+		info_display.style["display"] = "none";
+		image_display.style["display"] = "none";
+		video_display.style["display"] = "none";
+
+		display_mode.style["display"] = "inherit";
+		VT.displayManager.current_display = display_mode;
+		toggleButton();
+	};
+
+	updateDisplay = function () {
+		if (VT.displayManager.current_display == info_display) {
+			updateInfoDisplay();
+		}
+		if (VT.displayManager.current_display == image_display) {
+			updateImageDisplay();
+		}
+		if (VT.displayManager.current_display == video_display) {
+			updateVideoDisplay();
+		} 
+	};
+
+	updateVideoDisplay = function () {
+		var index;
+		if (VT.stopManager.selected_marker != null) {
+			index = VT.stopManager.stop_markers.indexOf(
+				VT.stopManager.selected_marker
+			);
+			$("#youtube-player-container").tubeplayer("cue", VT.loader.stop_data[index].video);
+			setDisplay(video_display);
+			$('#control-bar-menu > li > a').removeClass('active');
+			$($('#video-btn > a').addClass('active'));
+		}
+	};
+
+	updateImageDisplay = function () {
+		var index, newSlide;
+		if (VT.stopManager.selected_marker != null) {
+			index = VT.stopManager.stop_markers.indexOf(
+				VT.stopManager.selected_marker
+			);
+			// Remove previous Slides
+			while (slideShow.firstChild) {
+            	slideShow.removeChild(slideShow.firstChild);
+            }
+            // Reinitialize the Slideshow
+			$(slideShow).cycle('reinit');
+			// Add new slides
+			for (var i = 0; i < VT.loader.stop_data[index].images.length; i++) {
+				newSlide = document.createElement("img");
+				newSlide.src = VT.loader.stop_data[index].images[i].image_url;
+				$(slideShow).cycle('add', newSlide);
+			}
+			setDisplay(image_display);
+			$('#control-bar-menu > li > a').removeClass('active');
+			$($('#image-btn > a').addClass('active'));
+		}
+	};
+
+	updateInfoDisplay = function () {
+		var index;
+		if (VT.stopManager.selected_marker != null) {
+			index = VT.stopManager.stop_markers.indexOf(
+				VT.stopManager.selected_marker
+			);
+			info_display.innerHTML = "<p>"+VT.loader.stop_data[index].info+"</p>";
+			setDisplay(info_display);
+			$('#control-bar-menu > li > a').removeClass('active');
+			$($('#info-btn > a').addClass('active'));
+		}
+	};
+
+	// function to change the button image on toggle
+	toggleButton = function () {
+		if (VT.displayManager.display_state == true) {
+			toggle_button.className = ""
+		}
+		if (VT.displayManager.display_state == false) {
+			toggle_button.className = "toggle-open"
+		}
+	};
+
+	engageControls = function () {
+		control_engagement.className = "engaged";
+	};
+
+	disengageControls = function () {
+		control_engagement.className = "";
+	};
+
+	addClickEvents = function () {
+		var video_button, image_button, info_button, next_button, prev_button,
+		increase_zoom_button, decrease_zoom_button;
+
+		video_button = document.getElementById("video-btn");
+		image_button = document.getElementById("image-btn");
+		info_button = document.getElementById("info-btn");
+		prev_button = document.getElementById("prev-btn");
+		next_button = document.getElementById("next-btn");
+		increase_zoom_button = document.getElementById("inc-zoom-btn");
+		decrease_zoom_button = document.getElementById("dec-zoom-btn");
+
+		video_button.onclick = function () {
+			updateVideoDisplay();
+		};
+		image_button.onclick = function () {
+			updateImageDisplay();
+		};
+		info_button.onclick = function () {
+			updateInfoDisplay();
+		};
+		next_button.onclick = function () {
+			VT.stopManager.nextStopMarker(VT.stopManager.selected_marker);
+		};
+		prev_button.onclick = function () {
+			VT.stopManager.previousStopMarker(VT.stopManager.selected_marker);
+		};
+		toggle_button.onclick = function () {
+			toggleDisplay();
+		};
+		increase_zoom_button.onclick = function () {
+			VT.mapManager.increaseZoom();
+		};
+		decrease_zoom_button.onclick = function () {
+			VT.mapManager.decreaseZoom();
+		};
+	};
+
+	return {
+		display_state: false,
+		current_display: null,
+		testy: function() {
+			updateVideoDisplay();
+		},
+		updateDisplay: function() {
+			updateDisplay();
+		},
+		closeDisplay: function() {
+			closeDisplay();
+		},
+		toggleButton: function() {
+			toggleButton();
+		},
+		engageControls: function() {
+			engageControls();
+		},
+		disengageControls: function() {
+			disengageControls();
+		},
+		init: function() {
+			getElements();
+			$("#youtube-player-container").tubeplayer({
+                initialVideo: "t5n0Hpa_CMA", // the video that is loaded into the player
+                preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
+            });
+            addClickEvents();
+			console.log("loaded displayManager")
+		}
+	};
 }();
