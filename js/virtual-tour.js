@@ -19,6 +19,7 @@ VT.loader = function () {
 	return {
 		stop_data: new Array(),
 		init: function() {
+			// Load Modules
 			VT.settings.init();
 			VT.displayManager.init();
 			VT.mapManager.init();
@@ -27,6 +28,12 @@ VT.loader = function () {
 			VT.tourManager.init();
 			VT.stopManager.init();
 			VT.infoBoxManager.init();
+			google.maps.event.addListenerOnce(VT.mapManager.map, 'bounds_changed', function() {
+				VT.stopManager.updateSelectedMarker(VT.stopManager.stop_markers[0]);
+				if (!VT.settings.USER_IS_MOBILE) {
+					VT.displayManager.updateVideoDisplay();
+				}
+			});
 		}
 	};
 }();
@@ -808,7 +815,7 @@ VT.displayManager = function () {
 	return {
 		display_state: false,
 		current_display: null,
-		testy: function() {
+		updateVideoDisplay: function() {
 			updateVideoDisplay();
 		},
 		updateDisplay: function() {
