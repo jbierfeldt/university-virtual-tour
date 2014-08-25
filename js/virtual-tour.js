@@ -11,7 +11,6 @@ VT.settings = function () {
             	this.USER_IS_MOBILE = true;
         	}
 			console.log("Settings for Virtual Tour");
-			alert(this.USER_IS_MOBILE);
 		}
 	};
 }();
@@ -25,6 +24,7 @@ VT.loader = function () {
 			VT.locationServices.init();
 			VT.tourManager.init();
 			VT.stopManager.init();
+			VT.infoBoxManager.init();
 		}
 	};
 }();
@@ -120,6 +120,10 @@ VT.markerManager = function () {
 			this.clearMarkers();
 			this.markers = new Array();
 		},
+		// Public function for getting icon
+		getIcon: function (icon_kind) {
+			return icons[icon_kind];
+		},
 		init: function() {
 			console.log("loaded markerManager");
 		}
@@ -185,16 +189,12 @@ VT.locationServices = function () {
 		current_location: null,
 		current_location_marker: null,
         init: function() {
-        	// if (USER_IS_MOBILE) {
-         //        if (navigator.geolocation) {
-         //        	navigator.geolocation.getCurrentPosition(displayAndWatchCurrentLocation, null, geo_options);
-         //        } else {
-         //        	return
-         //        }
-         //    }
-         	if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(displayAndWatchCurrentLocation,
-                		null, geo_options);
+        	if (VT.settings.USER_IS_MOBILE) {
+                if (navigator.geolocation) {
+                	navigator.geolocation.getCurrentPosition(
+                		displayAndWatchCurrentLocation, null, geo_options
+                	);
+                }
             }
         	console.log("loaded locationServices");
         }
@@ -269,7 +269,8 @@ VT.tourManager = function ($) {
 }();
 
 VT.stopManager = function ($) {
-	var loadStopJSON, loadStopMarkers;
+	var loadStopJSON, loadStopMarkers, updateSelectedMarker, nextStopMarker,
+	previousStopMarker;
 
 	// Asynchronously Load the Tour Path Data from its JSON file
 	loadStopJSON = function (json_file) {
@@ -302,13 +303,89 @@ VT.stopManager = function ($) {
 			marker.html = "<span class='info-title'>"+stop_data[i].marker.title+
 					"</span><br /><span class='info-description'>"+
 					stop_data[i].marker.description+"</span>";
-			// Add each marker to the stop_markers array
+
+			// Add click event in closure per 
+			// (http://stackoverflow.com/questions/8909652/adding-click-event-listeners-in-loop)
+			(function (marker) {
+				google.maps.event.addListener(marker, 'click', function() {
+					updateSelectedMarker(this);
+				});
+			})(marker);
+
+			// Add hover events only if user is not on mobile (has a mouse)
+			if (!VT.settings.USER_IS_MOBILE) {
+				(function (marker) {
+					google.maps.event.addListener(marker, 'mouseover', function() {
+						VT.infoBoxManager.updateMouseoverInfoBox(this, "on");
+					});
+					google.maps.event.addListener(marker, 'mouseout', function() {
+						VT.infoBoxManager.updateMouseoverInfoBox(this, "off");
+					});
+				})(marker);
+			}
+
 			VT.stopManager.stop_markers.push(marker);
 		}
 	};
 
+	updateSelectedMarker = function (marker) {
+		// If there is a marker already selected, unselect it.
+		if (VT.stopManager.selected_marker != null) {
+			VT.stopManager.selected_marker.setIcon(VT.markerManager.getIcon("unselected"));
+		}
+
+		// If a marker instance is passed to this function, set some things
+		if (marker != null) {
+			VT.stopManager.selected_marker = marker;
+			marker.setIcon(VT.markerManager.getIcon("selected"));
+			VT.mapManager.panToMarker(marker);
+			VT.infoBoxManager.updateClickInfoBox(marker);
+		}
+
+		if (marker == null) {
+			VT.stopManager.selected_marker = null;
+			VT.infoBoxManager.updateClickInfoBox(null);
+		}
+	};
+
+	nextStopMarker = function (marker) {
+		var index, nextMarker;
+		index = VT.stopManager.stop_markers.indexOf(marker);
+		if ( index >= 0 && index < (VT.stopManager.stop_markers.length - 1)) {
+			nextMarker = VT.stopManager.stop_markers[index + 1];
+		}
+		// If at the end, loop to beginning
+		if ( index == VT.stopManager.stop_markers.length - 1) {
+			nextMarker = VT.stopManager.stop_markers[0];
+		}
+		updateSelectedMarker(nextMarker);
+	};
+
+	previousStopMarker = function (marker) {
+		var index, previousMarker;
+		index = VT.stopManager.stop_markers.indexOf(marker);
+		if ( index <= (VT.stopManager.stop_markers.length - 1) && index > 0) {
+			previousMarker = VT.stopManager.stop_markers[index - 1];
+		}
+		// If at the beginning, loop to end
+		if ( index == 0) {
+			previousMarker = VT.stopManager.stop_markers[VT.stopManager.stop_markers.length - 1];
+		}
+		updateSelectedMarker(previousMarker);
+	};
+
 	return {
 		stop_markers: new Array(),
+		selected_marker: null,
+		updateSelectedMarker: function(marker) {
+			updateSelectedMarker(marker);
+		},
+		nextStopMarker: function(marker) {
+			nextStopMarker(marker);
+		},
+		previousStopMarker: function(marker) {
+			previousStopMarker(marker);
+		},
 		init: function() {
 			loadStopJSON(VT.settings.stops_json_path);
 			console.log("loaded stopManager");
@@ -316,10 +393,64 @@ VT.stopManager = function ($) {
 	};
 }();
 
+VT.infoBoxManager = function () {
+	var mouseoverInfoBox, clickInfoBox;
+
+	// Set the InfoBox for both the mouseover and click boxes
+	// Requires InfoBox.js
+	mouseoverInfoBox = new InfoBox({
+		content: '',
+		boxClass: "stop-info-box",
+		maxWidth: 0,
+		closeBoxURL: "",
+		disableAutoPan: true,
+		// Pixel offset is assuming width: 130px and padding: 10px
+		// for the stop-info-box class
+		pixelOffset: new google.maps.Size(-85, 10)
+	});
+
+	clickInfoBox = new InfoBox({
+		content: '',
+		boxClass: "stop-info-box",
+		maxWidth: 0,
+		closeBoxURL: "",
+		disableAutoPan: true,
+		// Pixel offset is assuming width: 130px and padding: 10px
+		// for the stop-info-box class
+		pixelOffset: new google.maps.Size(-85, 10)
+	});
+
+	return {
+		updateMouseoverInfoBox: function (marker, state) {
+        	if (state == "on"){
+        		mouseoverInfoBox.setContent(marker.html);
+        		mouseoverInfoBox.open(VT.mapManager.map, marker)
+        	}
+        	if (state == "off"){
+        		mouseoverInfoBox.close()
+        	}
+        },
+        updateClickInfoBox: function (marker) {
+			//Close previous ClickInfoBox
+			clickInfoBox.close();
+
+            //If functin is passed an actual marker, update to it
+            if (marker != null){
+            	clickInfoBox.setContent(marker.html);
+            	clickInfoBox.open(VT.mapManager.map, marker)
+            }
+        },
+		init: function() {
+			console.log("Loaded infoBoxManager");
+		}
+	};
+}();
+
 VT.mapManager = function () {
     "use strict";
 
-    var MY_MAPTYPE_ID, mapOptions, featureOpts, styledMapOptions;
+    var panToMarker, offsetLatlng, addClickEvents, MY_MAPTYPE_ID, mapOptions,
+    featureOpts, styledMapOptions;
 
     MY_MAPTYPE_ID = 'custom_style';
 
@@ -422,6 +553,53 @@ VT.mapManager = function () {
 	styledMapOptions = {
         name: 'Custom Style'
     };
+
+    panToMarker = function (marker) {
+    	var container_height;
+    	container_height = document.getElementById('map-container').clientHeight;
+		//If the top bar is open, should pan to under. If not, should pan to center.
+		//Offset target Latlng point by 1/4 of the height of the viewport
+		VT.mapManager.map.panTo(offsetLatlng(marker.position,0,(-(container_height/4))));
+	};
+		
+	//Function used to offset target Latlng by pixels
+	offsetLatlng = function (targetlatlng,offsetxpixels,offsetypixels) {
+		var scale, nw, worldCoordinateCenter, pixelOffset,
+		worldCoordinateNewCenter, newLatlng;
+		// latlng is the apparent centre-point
+		// offsetx is the distance you want that point to move to the right, in pixels
+		// offsety is the distance you want that point to move upwards, in pixels
+		// offset can be negative
+		// offsetx and offsety are both optional
+		
+		scale = Math.pow(2, VT.mapManager.map.getZoom());
+		nw = new google.maps.LatLng(
+			VT.mapManager.map.getBounds().getNorthEast().lat(),
+			VT.mapManager.map.getBounds().getSouthWest().lng()
+			);
+		
+		worldCoordinateCenter = VT.mapManager.map.getProjection().fromLatLngToPoint(targetlatlng);
+		pixelOffset = new google.maps.Point((offsetxpixels/scale) || 0,(offsetypixels/scale) ||0)
+		
+		worldCoordinateNewCenter = new google.maps.Point(
+			worldCoordinateCenter.x - pixelOffset.x,
+			worldCoordinateCenter.y + pixelOffset.y
+			);
+		
+		newLatlng = VT.mapManager.map.getProjection().fromPointToLatLng(worldCoordinateNewCenter);
+		
+		return newLatlng;
+	};
+
+	addClickEvents = function () {
+		google.maps.event.addListener(VT.mapManager.map, "click", function() {
+           	// if (DISPLAY_STATE == true) {
+            // 	display_container.style["display"] = "none";
+            // 	DISPLAY_STATE = false;
+            // }
+            VT.stopManager.updateSelectedMarker(null);
+            });
+	};
     
     return {
     	map: null,
@@ -431,11 +609,15 @@ VT.mapManager = function () {
     	decreaseZoom: function () {
     		this.map.setZoom(this.map.getZoom()-1);
     	},
+    	panToMarker: function (marker) {
+    		panToMarker(marker);
+    	},
         init: function() {
         	this.map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
             var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
             this.map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+            addClickEvents();
             console.log("loaded mapManager");
         }
     };
