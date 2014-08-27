@@ -10,7 +10,7 @@ VT.settings = function () {
 			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             	this.USER_IS_MOBILE = true;
         	}
-			console.log("Settings for Virtual Tour");
+			// console.log("Settings for Virtual Tour");
 		}
 	};
 }();
@@ -134,7 +134,7 @@ VT.markerManager = function () {
 			return icons[icon_kind];
 		},
 		init: function() {
-			console.log("loaded markerManager");
+			// console.log("loaded markerManager");
 		}
 	};
 }();
@@ -172,9 +172,9 @@ VT.locationServices = function () {
 		{
 			setCurrentLocationMarker(position);
 			// watchCurrentLocation();
-			console.log("tracking location");
+			// console.log("tracking location");
 		} else {
-			console.log("not tracking location (outside of bounds)");
+			// console.log("not tracking location (outside of bounds)");
 		}
 	};
 
@@ -205,7 +205,7 @@ VT.locationServices = function () {
                 	);
                 }
             }
-        	console.log("loaded locationServices");
+        	// console.log("loaded locationServices");
         }
     };
 
@@ -272,7 +272,7 @@ VT.tourManager = function ($) {
 		},
 		init: function() {
 			loadTourPathJSON(VT.settings.tour_json_path);
-			console.log("loaded tourManager");
+			// console.log("loaded tourManager");
 		}
 	};
 }();
@@ -319,6 +319,11 @@ VT.stopManager = function ($) {
 			// (http://stackoverflow.com/questions/8909652/adding-click-event-listeners-in-loop)
 			(function (marker) {
 				google.maps.event.addListener(marker, 'click', function() {
+				    // if clicked marker is already selected, open display
+				    if (VT.stopManager.selected_marker == this){
+				    	VT.displayManager.openDisplay();
+				    }
+				    // Set selected marker to clicked marker
 					updateSelectedMarker(this);
 				});
 			})(marker);
@@ -407,7 +412,7 @@ VT.stopManager = function ($) {
 		},
 		init: function() {
 			loadStopJSON(VT.settings.stops_json_path);
-			console.log("loaded stopManager");
+			// console.log("loaded stopManager");
 		}
 	};
 }();
@@ -460,7 +465,7 @@ VT.infoBoxManager = function () {
             }
         },
 		init: function() {
-			console.log("Loaded infoBoxManager");
+			// console.log("Loaded infoBoxManager");
 		}
 	};
 }();
@@ -636,15 +641,14 @@ VT.mapManager = function () {
             var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
             this.map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
             addClickEvents();
-            console.log("loaded mapManager");
+            // console.log("loaded mapManager");
         }
     };
 }();
 
 VT.displayManager = function () {
-	var getElements, toggleDisplay, closeDisplay, setDisplay, updateDisplay, updateVideoDisplay,
-	updateImageDisplay, updateInfoDisplay, toggleButton, engageControls, disengageControls, 
-	addClickEvents, map_container, main_controls, display_controls, video_display,
+	var getElements, toggleDisplay, closeDisplay, openDisplay, setDisplay, updateDisplay,
+	updateVideoDisplay, updateImageDisplay, updateInfoDisplay, toggleButton, engageControls, disengageControls, addClickEvents, map_container, main_controls, display_controls, video_display,
 	image_display, info_display, youtube_player, slideShow, toggle_button, control_engagement;
 
 	getElements = function () {
@@ -679,6 +683,10 @@ VT.displayManager = function () {
 		display_container.style["display"] = "none";
 		VT.displayManager.display_state = false;
 	};
+	
+	openDisplay = function () {
+    	setDisplay(VT.displayManager.current_display);
+	}
 
 	setDisplay = function(display_mode) {
 		if (VT.displayManager.display_state == false) {
@@ -824,6 +832,9 @@ VT.displayManager = function () {
 		closeDisplay: function() {
 			closeDisplay();
 		},
+		openDisplay: function() {
+    		openDisplay();
+		},
 		toggleButton: function() {
 			toggleButton();
 		},
@@ -840,7 +851,7 @@ VT.displayManager = function () {
                 preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
             });
             addClickEvents();
-			console.log("loaded displayManager")
+			// console.log("loaded displayManager")
 		}
 	};
 }();
