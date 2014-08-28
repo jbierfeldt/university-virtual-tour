@@ -5,7 +5,7 @@ VT.settings = function () {
 	return {
 		USER_IS_MOBILE: false,
 		tour_json_path: "http://sandbox.bierfeldt.me/vt/json/tour_path.json",
-		stops_json_path: "http://sandbox.bierfeldt.me/vt/json/tour_stops2.json",
+		stops_json_path: "http://sandbox.bierfeldt.me/vt/json/tour_stops4.json",
 		init: function() {
 			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             	this.USER_IS_MOBILE = true;
@@ -668,6 +668,7 @@ VT.displayManager = function () {
 		if (VT.displayManager.display_state == false) {
 			display_container.style["display"] = "inherit";
 			VT.displayManager.display_state = true;
+			VT.displayManager.updateDisplay();
 			toggleButton();
 			return;
 		}
@@ -742,7 +743,8 @@ VT.displayManager = function () {
 			// Add new slides
 			for (var i = 0; i < VT.loader.stop_data[index].images.length; i++) {
 				newSlide = document.createElement("img");
-				newSlide.src = VT.loader.stop_data[index].images[i].image_url;
+				newSlide.src = VT.loader.stop_data[index].images[i].image.image_url;
+				newSlide.alt = VT.loader.stop_data[index].images[i].image.image_caption;
 				$(slideShow).cycle('add', newSlide);
 			}
 			setDisplay(image_display);
