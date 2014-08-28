@@ -847,7 +847,7 @@ VT.displayManager = function () {
 		init: function() {
 			getElements();
 			$("#youtube-player-container").tubeplayer({
-                initialVideo: "t5n0Hpa_CMA", // the video that is loaded into the player
+                initialVideo: "6AYafYVqIOY", // the video that is loaded into the player
                 preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
             });
             addClickEvents();
