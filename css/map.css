@@ -98,7 +98,8 @@ transform:rotate(180deg);
 
 #info-display p {
 	margin: 0px;
-	padding: 2em;
+	padding: 1% 10%;
+	font-size: .75em;
 }
 
 
@@ -114,7 +115,10 @@ transform:rotate(180deg);
 #image-display img {
 	height: 90%;
 	width: 45%;
-	margin: 2.5%;
+	margin: 2.5% 0;
+	padding-left: 50%;
+	margin-left: -20%
+	
 }
 
 #video-display {
@@ -163,6 +167,25 @@ transform:rotate(180deg);
 	bottom: 0;
 	margin-bottom: 12px;
 	margin-left: 2px;
+}
+
+#alt-caption {margin: 2.5%;
+font-size: .75em;}
+.next, .prev {
+	position: absolute;
+	top: 50%;
+	margin: 2.5%;
+	color: white;
+	z-index: 100;
+	padding: 1em;
+	background-color: rgba(100,100,100, .5);
+	font-size: .5em;
+}
+.next {right: 0; top: 25%}
+.prev {left: 0; top: 25%}
+
+.prev.ss-navigateleft.left::before, .next.ss-navigateright.right::after {
+color: white;
 }
 
 #zoom-controls img {
@@ -224,7 +247,7 @@ transform:rotate(180deg);
 .shadow{
 	display: block;
 	position: relative;
-	background-color: #000;
+	/* background-color: #000; */
 }
 .shadow img {
 	opacity: .5;
