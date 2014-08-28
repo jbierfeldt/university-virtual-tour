@@ -4,7 +4,11 @@
 	"lat": 41.789072,
 	"lng": -87.59916
 },
+<<<<<<< Updated upstream
 "video": "t5n0Hpa_CMA",
+=======
+"video": "6AYafYVqIOY",
+>>>>>>> Stashed changes
 "info": "Rosenwald Hall was built to house the Geology and Geography departments, so the outside is covered with imagery of people and objects related to those pursuits. Julius Rosenwald, president of Sears, Roebuck, granted the University $250,000 to construct the building. After the aforementioned departments, Rosenwald housed the business school from 1972 until it moved to its current location.",
 "images": [
 	{"image_url": "http://chuckmanchicagonostalgia.files.wordpress.com/2010/06/postcard-chicago-university-of-chicago-rosenwald-hall-walker-museum-handsome-early1.jpg"},
@@ -195,10 +199,173 @@
 ]
 },
 {"marker": {
+<<<<<<< Updated upstream
 	"title": "Ratner Gymnasium",
 	"description": "Athletic Center",
 	"lat": 41.791404,
 	"lng": -87.603087
+=======
+	"title": "BSLC",
+	"description": "",
+	"lat": 41.791404,
+	"lng": -87.602787
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+	{"image_url": "http://upload.wikimedia.org/wikipedia/en/c/c8/MaxPalevskyResidentialCommons.jpg"}
+]
+},
+{"marker": {
+	"title": "Gordon Center for Integrative Sciences",
+	"description": "",
+	"lat": 41.791443,
+	"lng": -87.603621
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+	{"image_url": "http://upload.wikimedia.org/wikipedia/en/c/c8/MaxPalevskyResidentialCommons.jpg"}
+]
+},
+{"marker": {
+	"title": "University of Chicago Hospitals and the Pritzker School of Medicine",
+	"description": "",
+	"lat": 41.791275,
+	"lng": -87.603605
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+	{"image_url": "http://upload.wikimedia.org/wikipedia/en/c/c8/MaxPalevskyResidentialCommons.jpg"}
+]
+},
+{"marker": {
+	"title": "Bookstore",
+	"description": "",
+	"lat": 41.78956,
+	"lng": -87.601821
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+	{"image_url": "http://upload.wikimedia.org/wikipedia/en/c/c8/MaxPalevskyResidentialCommons.jpg"}
+]
+},
+{"marker": {
+	"title": "Logan Center for the Arts",
+	"description": "",
+	"lat": 41.785821,
+	"lng": -87.60362
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+	{"image_url": "http://upload.wikimedia.org/wikipedia/en/c/c8/MaxPalevskyResidentialCommons.jpg"}
+]
+},
+{"marker": {
+	"title": "Cathey Dining Commons",
+	"description": "",
+	"lat": 41.784996,
+	"lng": -87.600706
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+	{"image_url": "http://upload.wikimedia.org/wikipedia/en/c/c8/MaxPalevskyResidentialCommons.jpg"}
+]
+},
+{"marker": {
+	"title": "The Law School",
+	"description": "",
+	"lat": 41.785856,
+	"lng": -87.599057
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+	{"image_url": "http://upload.wikimedia.org/wikipedia/en/c/c8/MaxPalevskyResidentialCommons.jpg"}
+]
+},
+{"marker": {
+	"title": "Rockefeller Memorial Chapel",
+	"description": "",
+	"lat": 41.788012,
+	"lng": -87.597046
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+	{"image_url": "http://upload.wikimedia.org/wikipedia/en/c/c8/MaxPalevskyResidentialCommons.jpg"}
+]
+},
+{"marker": {
+	"title": "Ida Noyes Hall",
+	"description": "",
+	"lat": 41.788236,
+	"lng": -87.596276
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+	{"image_url": "http://upload.wikimedia.org/wikipedia/en/c/c8/MaxPalevskyResidentialCommons.jpg"}
+]
+},
+{"marker": {
+	"title": "Booth School of Business",
+	"description": "",
+	"lat": 41.789319,
+	"lng": -87.596296
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+	{"image_url": "http://upload.wikimedia.org/wikipedia/en/c/c8/MaxPalevskyResidentialCommons.jpg"}
+]
+},
+{"marker": {
+	"title": "The Institute of Politics",
+	"description": "",
+	"lat": 41.79116,
+	"lng": -87.596342
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+	{"image_url": "http://upload.wikimedia.org/wikipedia/en/c/c8/MaxPalevskyResidentialCommons.jpg"}
+]
+},
+{"marker": {
+	"title": "5710 Woodlawn",
+	"description": "",
+	"lat": 41.791041,
+	"lng": -87.59656
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+	{"image_url": "http://upload.wikimedia.org/wikipedia/en/c/c8/MaxPalevskyResidentialCommons.jpg"}
+]
+},
+{"marker": {
+	"title": "Saieh Hall for Economics",
+	"description": "",
+	"lat": 41.789672,
+	"lng": -87.597385
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+	{"image_url": "http://upload.wikimedia.org/wikipedia/en/c/c8/MaxPalevskyResidentialCommons.jpg"}
+]
+},
+{"marker": {
+	"title": "The Oriental Institute",
+	"description": "",
+	"lat": 41.789561,
+	"lng": -87.597777
+>>>>>>> Stashed changes
 },
 "video": "S1k86fWsmRE",
 "info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
