@@ -279,7 +279,7 @@ color: white;
 	position: relative;
 	/* background-color: #000; */
 }
-.shadow img {
+#control-bar-menu {
 	opacity: .5;
 }
 
@@ -296,7 +296,7 @@ color: white;
     -ms-transition: all .2s linear;
     transition: all .2s linear;
 }
-#control-bar-menu.engaged .shadow img{
+#control-bar-menu.engaged{
 	opacity: 1;
 }
 
@@ -344,4 +344,3 @@ color: white;
 			width: 16%;
 	}
 }
-
