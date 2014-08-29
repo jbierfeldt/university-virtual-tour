@@ -4,8 +4,8 @@ var VT = {};
 VT.settings = function () {
 	return {
 		USER_IS_MOBILE: false,
-		tour_json_path:  "/vt/json/tour_path.json",
-		stops_json_path: "/vt/json/tour_stops4.json",
+		tour_json_path:  "http://oesa-sb.uchicago.edu/vt/json/tour_path.json",
+		stops_json_path: "http://oesa-sb.uchicago.edu/vt/json/tour_stops4.json",
 		init: function() {
 			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             	this.USER_IS_MOBILE = true;
@@ -353,7 +353,6 @@ VT.stopManager = function ($) {
 		// If a marker instance is passed to this function, set some things
 		if (marker != null) {
 			VT.stopManager.selected_marker = marker;
-			VT.displayManager.updateTitle();
 			marker.setIcon(VT.markerManager.getIcon("selected"));
 			VT.mapManager.panToMarker(marker);
 			VT.infoBoxManager.updateClickInfoBox(marker);
@@ -371,6 +370,9 @@ VT.stopManager = function ($) {
 			VT.displayManager.toggleButton();
 			VT.displayManager.disengageControls();
 		}
+
+		// Update the Title regardless
+		VT.displayManager.updateTitle();
 	};
 
 	nextStopMarker = function (marker) {
@@ -675,7 +677,7 @@ VT.displayManager = function () {
 			);
 			control_title.innerHTML = VT.loader.stop_data[index].marker.title;
 		} else {
-			control_title.innerHTML = "Select a Stop";
+			control_title.innerHTML = "Select a stop on the maps";
 		}
 	};
 	
