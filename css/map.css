@@ -277,7 +277,7 @@ color: white;
 }
 
 
-@media screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1) { 
+@media screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 568px), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1) { 
   #control-bar-menu li img {
   	min-width: 88px;
   }

@@ -353,6 +353,7 @@ VT.stopManager = function ($) {
 		// If a marker instance is passed to this function, set some things
 		if (marker != null) {
 			VT.stopManager.selected_marker = marker;
+			VT.displayManager.updateTitle();
 			marker.setIcon(VT.markerManager.getIcon("selected"));
 			VT.mapManager.panToMarker(marker);
 			VT.infoBoxManager.updateClickInfoBox(marker);
