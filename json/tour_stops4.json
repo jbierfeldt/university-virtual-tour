@@ -9,13 +9,19 @@
 "images": [
     {"image":
         {
-        "image_url": "http://img1.wikia.nocookie.net/__cb20100122000942/brothers/images/5/56/Placeholder.gif",
+        "image_url": "/vt/images/slides/rosenwald1.jpg",
         "image_caption": "This is a placeholder image from the '80s. Stuff was weird then. Weird."
         }
     },
     {"image":
         {
-        "image_url": "http://www.blogcdn.com/www.engadget.com/media/2012/03/leaddsc09420-1332363400.jpg",
+        "image_url": "/vt/images/slides/rosenwald2.jpg",
+        "image_caption": "This was the camera Jackson used to own. If you have seen it, please let him know. Remember: See something? Say something."
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/rosenwald3.jpg",
         "image_caption": "This was the camera Jackson used to own. If you have seen it, please let him know. Remember: See something? Say something."
         }
     }
@@ -32,13 +38,25 @@
 "images": [
     {"image":
         {
-        "image_url": "http://img1.wikia.nocookie.net/__cb20100122000942/brothers/images/5/56/Placeholder.gif",
+        "image_url": "/vt/images/slides/walker1.jpg",
         "image_caption": "This is a placeholder image from the '80s. Stuff was weird then. Weird."
         }
     },
     {"image":
         {
-        "image_url": "http://www.blogcdn.com/www.engadget.com/media/2012/03/leaddsc09420-1332363400.jpg",
+        "image_url": "/vt/images/slides/walker2.jpg",
+        "image_caption": "This was the camera Jackson used to own. If you have seen it, please let him know. Remember: See something? Say something."
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/walker3.jpg",
+        "image_caption": "This was the camera Jackson used to own. If you have seen it, please let him know. Remember: See something? Say something."
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/walker4.jpg",
         "image_caption": "This was the camera Jackson used to own. If you have seen it, please let him know. Remember: See something? Say something."
         }
     }
@@ -55,16 +73,28 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/quad1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/quad2.jpg",
         "image_caption": ""
         }
-    }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/quad3.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/quad4.jpg",
+        "image_caption": ""
+        }
+    }        
 ]
 },
 {"marker": {
@@ -78,13 +108,25 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/harper1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/harper2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/harper3.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/harper4.jpg",
         "image_caption": ""
         }
     }
@@ -101,13 +143,25 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/bond1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/bond2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/bond3.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/bond4.jpg",
         "image_caption": ""
         }
     }
@@ -124,13 +178,25 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/cobb1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/cobb2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/cobb3.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/cobb4.jpg",
         "image_caption": ""
         }
     }
@@ -147,13 +213,25 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/botany1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/botany2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/botany3.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/botany4.jpg",
         "image_caption": ""
         }
     }
@@ -170,16 +248,17 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/hutch1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/hutch2.jpg",
         "image_caption": ""
         }
     }
+
 ]
 },
 {"marker": {
@@ -193,13 +272,25 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/reynolds1.jpt",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/reynolds2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/reynolds3.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/reynolds4.jpg",
         "image_caption": ""
         }
     }
@@ -216,13 +307,19 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/reg1.jpt",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/reg2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/reg3.jpg",
         "image_caption": ""
         }
     }
@@ -239,13 +336,19 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/bartlett1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/bartlett2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/bartlett3.jpg",
         "image_caption": ""
         }
     }
@@ -262,13 +365,13 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/maxp1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/maxp2.jpg",
         "image_caption": ""
         }
     }
@@ -285,13 +388,19 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/crown1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/crown2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/crown3.jpg",
         "image_caption": ""
         }
     }
@@ -308,13 +417,25 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/smart1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/smart2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/smart3.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/smart4.jpg",
         "image_caption": ""
         }
     }
@@ -331,13 +452,13 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/court1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/court2.jpg",
         "image_caption": ""
         }
     }
@@ -354,13 +475,13 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/ratner1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/ratner2.jpg",
         "image_caption": ""
         }
     }
@@ -377,13 +498,13 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/blsc1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/blsc2.jpg",
         "image_caption": ""
         }
     }
@@ -400,13 +521,13 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/gcis1.png",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/gcis2.png",
         "image_caption": ""
         }
     }
@@ -423,13 +544,19 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/uchospital1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/uchospital2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/uchospital3.jpg",
         "image_caption": ""
         }
     }
@@ -446,13 +573,13 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/bookstore1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/bookstore2.jpg",
         "image_caption": ""
         }
     }
@@ -469,13 +596,31 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/logan1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/logan2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/logan3.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/logan4.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/logan5.jpg",
         "image_caption": ""
         }
     }
@@ -492,13 +637,19 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/cathey1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/cathey2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/cathey3.jpg",
         "image_caption": ""
         }
     }
@@ -515,13 +666,31 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/lawschool1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/lawschool2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/lawschool3.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/lawschool4.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/lawschool5.jpg",
         "image_caption": ""
         }
     }
@@ -538,13 +707,37 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/rockefeller1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/rockefeller2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/rockefeller3.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/rockefeller4.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/rockefeller5.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/rockefeller6.jpg",
         "image_caption": ""
         }
     }
@@ -561,13 +754,13 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/idanoyes1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/idanoyes2.jpg",
         "image_caption": ""
         }
     }
@@ -584,13 +777,13 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/booth1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/booth2.jpg",
         "image_caption": ""
         }
     }
@@ -607,13 +800,13 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/iop.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/iop.jpg",
         "image_caption": ""
         }
     }
@@ -630,13 +823,25 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/walker1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/walker2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/walker3.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/walker4.jpg",
         "image_caption": ""
         }
     }
@@ -653,13 +858,19 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/saieh1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/saieh2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/saieh3.jpg",
         "image_caption": ""
         }
     }
@@ -676,13 +887,13 @@
 "images": [
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/oreientalinstitute1.jpg",
         "image_caption": ""
         }
     },
     {"image":
         {
-        "image_url": "",
+        "image_url": "/vt/images/slides/oreientalinstitute2.jpg",
         "image_caption": ""
         }
     }
