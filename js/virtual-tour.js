@@ -353,6 +353,7 @@ VT.stopManager = function ($) {
 		// If a marker instance is passed to this function, set some things
 		if (marker != null) {
 			VT.stopManager.selected_marker = marker;
+			VT.displayManager.updateTitle();
 			marker.setIcon(VT.markerManager.getIcon("selected"));
 			VT.mapManager.panToMarker(marker);
 			VT.infoBoxManager.updateClickInfoBox(marker);
@@ -647,13 +648,15 @@ VT.mapManager = function () {
 }();
 
 VT.displayManager = function () {
-	var getElements, toggleDisplay, closeDisplay, openDisplay, setDisplay, updateDisplay,
-	updateVideoDisplay, updateImageDisplay, updateInfoDisplay, toggleButton, engageControls, disengageControls, addClickEvents, map_container, main_controls, display_controls, video_display,
+	var getElements, updateTitle, toggleDisplay, closeDisplay, openDisplay, setDisplay, updateDisplay,
+	updateVideoDisplay, updateImageDisplay, updateInfoDisplay, toggleButton, engageControls, disengageControls,
+	addClickEvents, map_container, main_controls, control_title, display_controls, video_display,
 	image_display, info_display, youtube_player, slideShow, toggle_button, control_engagement;
 
 	getElements = function () {
 		map_container = document.getElementById("map-container");
 		main_controls = document.getElementById("main-controls-container");
+		control_title = document.getElementById("control-bar-title-container");
         display_container = document.getElementById("display-container");
         video_display = document.getElementById('video-display');
         image_display = document.getElementById('image-display');
@@ -664,6 +667,19 @@ VT.displayManager = function () {
         control_engagement = document.getElementById('control-bar-menu');
 	};
 
+	updateTitle = function () {
+		console.log(control_title.firstChild);
+		var index;
+		if (VT.stopManager.selected_marker != null) {
+			index = VT.stopManager.stop_markers.indexOf(
+				VT.stopManager.selected_marker
+			);
+			control_title.innerHTML = VT.loader.stop_data[index].marker.title;
+		} else {
+			control_title.innerHTML = "Select a Stop";
+		}
+	};
+	
 	toggleDisplay = function () {
 		if (VT.displayManager.display_state == false) {
 			display_container.style["display"] = "inherit";
@@ -812,7 +828,10 @@ VT.displayManager = function () {
 			VT.stopManager.previousStopMarker(VT.stopManager.selected_marker);
 		};
 		toggle_button.onclick = function () {
-			toggleDisplay();
+			// disable toggle button if no marker is selected
+			if (VT.stopManager.selected_marker) {
+				toggleDisplay();
+			}
 		};
 		increase_zoom_button.onclick = function () {
 			VT.mapManager.increaseZoom();
@@ -825,6 +844,9 @@ VT.displayManager = function () {
 	return {
 		display_state: false,
 		current_display: null,
+		updateTitle: function() {
+			updateTitle();
+		},
 		updateVideoDisplay: function() {
 			updateVideoDisplay();
 		},
