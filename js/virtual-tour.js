@@ -741,8 +741,8 @@ VT.displayManager = function () {
 			);
 			$("#youtube-player-container").tubeplayer("cue", VT.loader.stop_data[index].video);
 			setDisplay(video_display);
-			$('#control-bar-menu > li > a').removeClass('active');
-			$($('#video-btn > a').addClass('active'));
+			$('#control-bar-menu > li').removeClass('active');
+			$($('#video-btn').addClass('active'));
 		}
 	};
 
@@ -766,8 +766,8 @@ VT.displayManager = function () {
 				$(slideShow).cycle('add', newSlide);
 			}
 			setDisplay(image_display);
-			$('#control-bar-menu > li > a').removeClass('active');
-			$($('#image-btn > a').addClass('active'));
+			$('#control-bar-menu > li').removeClass('active');
+			$($('#image-btn').addClass('active'));
 		}
 	};
 
@@ -779,8 +779,8 @@ VT.displayManager = function () {
 			);
 			info_display.innerHTML = "<p>"+VT.loader.stop_data[index].info+"</p>";
 			setDisplay(info_display);
-			$('#control-bar-menu > li > a').removeClass('active');
-			$($('#info-btn > a').addClass('active'));
+			$('#control-bar-menu > li').removeClass('active');
+			$($('#info-btn').addClass('active'));
 		}
 	};
 
