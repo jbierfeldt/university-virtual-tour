@@ -668,7 +668,6 @@ VT.displayManager = function () {
 	};
 
 	updateTitle = function () {
-		console.log(control_title.firstChild);
 		var index;
 		if (VT.stopManager.selected_marker != null) {
 			index = VT.stopManager.stop_markers.indexOf(
