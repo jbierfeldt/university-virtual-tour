@@ -678,7 +678,7 @@ VT.displayManager = function () {
 			);
 			control_title.innerHTML = VT.loader.stop_data[index].marker.title;
 		} else {
-			control_title.innerHTML = "Select a stop on the maps";
+			control_title.innerHTML = "Select a stop on the map";
 		}
 	};
 	
