@@ -4,8 +4,8 @@ var VT = {};
 VT.settings = function () {
 	return {
 		USER_IS_MOBILE: false,
-		tour_json_path: "http://sandbox.bierfeldt.me/vt/json/tour_path.json",
-		stops_json_path: "http://sandbox.bierfeldt.me/vt/json/tour_stops4.json",
+		tour_json_path:  "/vt/json/tour_path.json",
+		stops_json_path: "/vt/json/tour_stops4.json",
 		init: function() {
 			if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             	this.USER_IS_MOBILE = true;
