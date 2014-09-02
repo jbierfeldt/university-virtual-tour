@@ -654,7 +654,8 @@ VT.displayManager = function () {
 	var getElements, updateTitle, toggleDisplay, closeDisplay, openDisplay, setDisplay, updateDisplay,
 	updateVideoDisplay, updateImageDisplay, updateInfoDisplay, toggleButton, engageControls, disengageControls,
 	addClickEvents, map_container, main_controls, control_title, display_controls, video_display,
-	image_display, info_display, youtube_player, slideShow, toggle_button, control_engagement;
+	image_display, info_display, youtube_player, slideShow, toggle_button, control_engagement,
+	next_video_window;
 
 	getElements = function () {
 		map_container = document.getElementById("map-container");
@@ -668,6 +669,7 @@ VT.displayManager = function () {
         slideShow = document.getElementById("cycle-slideshow-div");
         toggle_button = document.getElementById("toggle-btn");
         control_engagement = document.getElementById('control-bar-menu');
+        next_video_window = document.getElementById('next-video-window');
 	};
 
 	updateTitle = function () {
@@ -708,6 +710,10 @@ VT.displayManager = function () {
 	}
 
 	setDisplay = function(display_mode) {
+		// Anytime setDisplay is called,
+		// close the next-video-window
+		VT.displayManager.removeNextVideoWindow();
+
 		if (VT.displayManager.display_state == false) {
 			display_container.style["display"] = "inherit";
 			VT.displayManager.display_state = true;
@@ -804,7 +810,7 @@ VT.displayManager = function () {
 
 	addClickEvents = function () {
 		var video_button, image_button, info_button, next_button, prev_button,
-		increase_zoom_button, decrease_zoom_button;
+		increase_zoom_button, decrease_zoom_button, next_video_button, play_again_button;
 
 		video_button = document.getElementById("video-btn");
 		image_button = document.getElementById("image-btn");
@@ -813,6 +819,8 @@ VT.displayManager = function () {
 		next_button = document.getElementById("next-btn");
 		increase_zoom_button = document.getElementById("inc-zoom-btn");
 		decrease_zoom_button = document.getElementById("dec-zoom-btn");
+		next_video_button = document.getElementById("next-video-btn");
+		play_again_button = document.getElementById("watch-again-btn");
 
 		video_button.onclick = function () {
 			updateVideoDisplay();
@@ -840,6 +848,14 @@ VT.displayManager = function () {
 		};
 		decrease_zoom_button.onclick = function () {
 			VT.mapManager.decreaseZoom();
+		};
+		play_again_button.onclick = function () {
+			$("#youtube-player-container").tubeplayer("play");
+			VT.displayManager.removeNextVideoWindow();
+		};
+		next_video_button.onclick = function () {
+			VT.stopManager.nextStopMarker(VT.stopManager.selected_marker);
+			VT.displayManager.removeNextVideoWindow();
 		};
 	};
 
@@ -870,11 +886,17 @@ VT.displayManager = function () {
 		disengageControls: function() {
 			disengageControls();
 		},
+		removeNextVideoWindow: function () {
+			next_video_window.style["display"] = "none";
+		},
 		init: function() {
 			getElements();
 			$("#youtube-player-container").tubeplayer({
                 initialVideo: "6AYafYVqIOY", // the video that is loaded into the player
                 preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
+                onPlayerEnded: function(){
+                	next_video_window.style["display"] = "inherit";
+                },
             });
             addClickEvents();
 			// console.log("loaded displayManager")
