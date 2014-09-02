@@ -326,6 +326,35 @@
 ]
 },
 {"marker": {
+    "title": "Mansueto Library",
+    "description": "Special Collections Library",
+    "lat": 41.791472,
+    "lng": -87.601176
+},
+"video": "0HjfSvyPHFo",
+"info": "Regenstein Library, referred to as “The Reg” by virtually everyone, was the largest building on campus when it was built in 1970. Originally it was intended only for graduate students at the University, but eventually undergrads were allowed access, and the Reg became the de facto locus of studying for all students. The Joe and Riva Mansueto Library, which opened in 2011, offers students a silent study space, and houses thousands of volumes in a massive filing system underground.",
+"images": [
+    {"image":
+        {
+        "image_url": "/vt/images/slides/reg1.jpt",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/reg2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/reg3.jpg",
+        "image_caption": ""
+        }
+    }
+]
+},
+{"marker": {
 	"title": "Bartlett Dining Commons",
 	"description": "Dining Hall",
 	"lat": 41.791964,
