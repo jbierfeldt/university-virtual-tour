@@ -620,9 +620,12 @@ VT.mapManager = function () {
 	};
 
 	addClickEvents = function () {
+		// Close display and deselect marker when user clicks map
 		google.maps.event.addListener(VT.mapManager.map, "click", function() {
 			// Close Display
            	VT.displayManager.closeDisplay();
+           	// Pause Video
+           	$("#youtube-player-container").tubeplayer("pause");
            	// Unselect Markers
             VT.stopManager.updateSelectedMarker(null);
             });
@@ -695,6 +698,8 @@ VT.displayManager = function () {
 		if  (VT.displayManager.display_state == true) {
 			display_container.style["display"] = "none";
 			VT.displayManager.display_state = false;
+			// pause the video if it's playing
+			$("#youtube-player-container").tubeplayer("pause");
 			toggleButton();
 			return;
 		}
@@ -713,6 +718,9 @@ VT.displayManager = function () {
 		// Anytime setDisplay is called,
 		// close the next-video-window
 		VT.displayManager.removeNextVideoWindow();
+		// Anytime setDisplay is called,
+		// pause the video if it's playing
+		$("#youtube-player-container").tubeplayer("pause");
 
 		if (VT.displayManager.display_state == false) {
 			display_container.style["display"] = "inherit";
