@@ -151,7 +151,6 @@ VT.locationServices = function () {
 	sw_bound = new google.maps.LatLng(41.780332,-87.605882);
 	bounds = new google.maps.LatLngBounds(sw_bound, ne_bound);
 
-
 	geo_options = {
 		enableHighAccuracy: true, 
 		maximumAge        : 3, 
@@ -870,7 +869,7 @@ VT.displayManager = function () {
 			VT.mapManager.decreaseZoom();
 		};
 		location_button.onclick = function () {
-			alert(VT.locationServices.LOCATION_SERVICES_ENABLED);
+			VT.locationServices.panToCurrentLocation();
 		}
 		play_again_button.onclick = function () {
 			$("#youtube-player-container").tubeplayer("play");
