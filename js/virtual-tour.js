@@ -151,7 +151,7 @@ VT.locationServices = function () {
 	sw_bound = new google.maps.LatLng(41.780332,-87.605882);
 	bounds = new google.maps.LatLngBounds(sw_bound, ne_bound);
 
-	location_button = document.getElementById("cur-loc-btn");
+	location_button = document.getElementById("location-controls");
 
 	geo_options = {
 		enableHighAccuracy: true, 
