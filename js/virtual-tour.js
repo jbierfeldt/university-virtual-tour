@@ -145,11 +145,13 @@ VT.locationServices = function () {
 	"use strict";
 
 	var setCurrentLocationMarker, watchCurrentLocation, displayAndWatchCurrentLocation,
-	panToCurrentLocation, ne_bound, sw_bound, bounds, geo_options;
+	panToCurrentLocation, ne_bound, sw_bound, bounds, geo_options, location_button;
 
 	ne_bound = new google.maps.LatLng(41.799562,-87.587342);
 	sw_bound = new google.maps.LatLng(41.780332,-87.605882);
 	bounds = new google.maps.LatLngBounds(sw_bound, ne_bound);
+
+	location_button = document.getElementById("cur-loc-btn");
 
 	geo_options = {
 		enableHighAccuracy: true, 
@@ -176,7 +178,8 @@ VT.locationServices = function () {
 			// watchCurrentLocation();
 			// console.log("tracking location");
 			VT.locationServices.LOCATION_SERVICES_ENABLED = true;
-
+			// Make button display if relevent
+			location_button.style["display"] = "inherit";
 		} else {
 			// console.log("not tracking location (outside of bounds)");
 		}
@@ -868,13 +871,9 @@ VT.displayManager = function () {
 		decrease_zoom_button.onclick = function () {
 			VT.mapManager.decreaseZoom();
 		};
-		if (VT.locationServices.LOCATION_SERVICES_ENABLED) {
-			location_button.style["display"] = "inherit";
-			location_button.onclick = function () {
-				VT.locationServices.panToCurrentLocation();
-			}
-		}
-		
+		location_button.onclick = function () {
+			VT.locationServices.panToCurrentLocation();
+		};
 		play_again_button.onclick = function () {
 			$("#youtube-player-container").tubeplayer("play");
 			VT.displayManager.removeNextVideoWindow();
