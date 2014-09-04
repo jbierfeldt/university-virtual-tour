@@ -817,13 +817,12 @@ VT.displayManager = function () {
 	};
 
 	addClickEvents = function () {
-		var video_button, image_button, info_button, next_button, prev_button,
+		var video_button, image_button, info_button, next_button,
 		increase_zoom_button, decrease_zoom_button, next_video_button, play_again_button;
 
 		video_button = document.getElementById("video-btn");
 		image_button = document.getElementById("image-btn");
 		info_button = document.getElementById("info-btn");
-		prev_button = document.getElementById("prev-btn");
 		next_button = document.getElementById("next-btn");
 		increase_zoom_button = document.getElementById("inc-zoom-btn");
 		decrease_zoom_button = document.getElementById("dec-zoom-btn");
@@ -841,9 +840,6 @@ VT.displayManager = function () {
 		};
 		next_button.onclick = function () {
 			VT.stopManager.nextStopMarker(VT.stopManager.selected_marker);
-		};
-		prev_button.onclick = function () {
-			VT.stopManager.previousStopMarker(VT.stopManager.selected_marker);
 		};
 		toggle_button.onclick = function () {
 			// disable toggle button if no marker is selected
