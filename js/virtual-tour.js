@@ -710,6 +710,7 @@ VT.displayManager = function () {
 	closeDisplay = function () {
 		display_container.style["display"] = "none";
 		VT.displayManager.display_state = false;
+		VT.displayManager.toggleButton();
 	};
 	
 	openDisplay = function () {
