@@ -872,7 +872,12 @@ VT.displayManager = function () {
 			location_button.style["display"] = "none";
 		};
 		location_button.onclick = function () {
-			VT.locationServices.panToCurrentLocation();
+			try {
+				VT.locationServices.panToCurrentLocation();
+			}
+			catch (error) {
+				alert("Please enable Location Services");
+			}
 		};
 		play_again_button.onclick = function () {
 			$("#youtube-player-container").tubeplayer("play");
