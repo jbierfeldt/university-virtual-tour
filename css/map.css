@@ -224,12 +224,12 @@ background-position: -528px 0px
 	bottom: 0;
 	margin-bottom: 2px;
 	margin-left: 6px;
+	display: none;
 }
 
 #location-controls ul li {
 	display: inline-block;
 	float: left;
-	display: none;
 }
 
 #next-controls {
