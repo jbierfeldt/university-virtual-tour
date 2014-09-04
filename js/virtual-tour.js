@@ -868,7 +868,7 @@ VT.displayManager = function () {
 			VT.mapManager.decreaseZoom();
 		};
 		// If location services not enabled, don't display button
-		if (VT.locationServices.LOCATION_SERVICES_ENABLED == false) {
+		if (VT.settings.USER_IS_MOBILE == false) {
 			location_button.style["display"] = "none";
 		};
 		location_button.onclick = function () {
