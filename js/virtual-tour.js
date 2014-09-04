@@ -151,8 +151,6 @@ VT.locationServices = function () {
 	sw_bound = new google.maps.LatLng(41.780332,-87.605882);
 	bounds = new google.maps.LatLngBounds(sw_bound, ne_bound);
 
-	location_button = document.getElementById("location-controls");
-
 	geo_options = {
 		enableHighAccuracy: true, 
 		maximumAge        : 3, 
@@ -178,8 +176,6 @@ VT.locationServices = function () {
 			// watchCurrentLocation();
 			// console.log("tracking location");
 			VT.locationServices.LOCATION_SERVICES_ENABLED = true;
-			// Make button display if relevent
-			location_button.style["display"] = "inherit";
 		} else {
 			// console.log("not tracking location (outside of bounds)");
 		}
@@ -870,6 +866,10 @@ VT.displayManager = function () {
 		};
 		decrease_zoom_button.onclick = function () {
 			VT.mapManager.decreaseZoom();
+		};
+		// If location services not enabled, don't display button
+		if (VT.locationServices.LOCATION_SERVICES_ENABLED == false) {
+			location_button.style["display"] = "none";
 		};
 		location_button.onclick = function () {
 			VT.locationServices.panToCurrentLocation();
