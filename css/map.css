@@ -217,6 +217,21 @@ background-position: -528px 0px
 	float: left;
 }
 
+#location-controls {
+	z-index: 2;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	margin-bottom: 2px;
+	margin-left: 6px;
+	display: inherit;
+}
+
+#location-controls ul li {
+	display: inline-block;
+	float: left;
+}
+
 #next-controls {
 	z-index: 2;
 	position: absolute;

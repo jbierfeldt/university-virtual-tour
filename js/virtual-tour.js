@@ -21,10 +21,10 @@ VT.loader = function () {
 		init: function() {
 			// Load Modules
 			VT.settings.init();
+			VT.locationServices.init();
 			VT.displayManager.init();
 			VT.mapManager.init();
 			VT.markerManager.init();
-			VT.locationServices.init();
 			VT.tourManager.init();
 			VT.stopManager.init();
 			VT.infoBoxManager.init();
@@ -145,11 +145,12 @@ VT.locationServices = function () {
 	"use strict";
 
 	var setCurrentLocationMarker, watchCurrentLocation, displayAndWatchCurrentLocation,
-	ne_bound, sw_bound, bounds, geo_options;
+	panToCurrentLocation, ne_bound, sw_bound, bounds, geo_options;
 
 	ne_bound = new google.maps.LatLng(41.799562,-87.587342);
 	sw_bound = new google.maps.LatLng(41.780332,-87.605882);
 	bounds = new google.maps.LatLngBounds(sw_bound, ne_bound);
+
 
 	geo_options = {
 		enableHighAccuracy: true, 
@@ -175,6 +176,8 @@ VT.locationServices = function () {
 			setCurrentLocationMarker(position);
 			// watchCurrentLocation();
 			// console.log("tracking location");
+			VT.locationServices.LOCATION_SERVICES_ENABLED = true;
+
 		} else {
 			// console.log("not tracking location (outside of bounds)");
 		}
@@ -196,9 +199,17 @@ VT.locationServices = function () {
 			});
 	};
 
+	panToCurrentLocation = function panToCurrentLocation() {
+		VT.mapManager.panToMarker(VT.locationServices.current_location_marker);
+	};
+
 	return {
 		current_location: null,
 		current_location_marker: null,
+		LOCATION_SERVICES_ENABLED: false,
+		panToCurrentLocation: function() {
+			panToCurrentLocation();
+		},
         init: function() {
         	if (VT.settings.USER_IS_MOBILE) {
                 if (navigator.geolocation) {
@@ -821,7 +832,8 @@ VT.displayManager = function () {
 
 	addClickEvents = function () {
 		var video_button, image_button, info_button, next_button,
-		increase_zoom_button, decrease_zoom_button, next_video_button, play_again_button;
+		increase_zoom_button, decrease_zoom_button, location_button,
+		next_video_button, play_again_button;
 
 		video_button = document.getElementById("video-btn");
 		image_button = document.getElementById("image-btn");
@@ -829,6 +841,7 @@ VT.displayManager = function () {
 		next_button = document.getElementById("next-btn");
 		increase_zoom_button = document.getElementById("inc-zoom-btn");
 		decrease_zoom_button = document.getElementById("dec-zoom-btn");
+		location_button = document.getElementById("cur-loc-btn");
 		next_video_button = document.getElementById("next-video-btn");
 		play_again_button = document.getElementById("watch-again-btn");
 
@@ -856,6 +869,9 @@ VT.displayManager = function () {
 		decrease_zoom_button.onclick = function () {
 			VT.mapManager.decreaseZoom();
 		};
+		location_button.onclick = function () {
+			alert(VT.locationServices.LOCATION_SERVICES_ENABLED);
+		}
 		play_again_button.onclick = function () {
 			$("#youtube-player-container").tubeplayer("play");
 			VT.displayManager.removeNextVideoWindow();
