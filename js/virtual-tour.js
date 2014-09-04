@@ -868,8 +868,7 @@ VT.displayManager = function () {
 		decrease_zoom_button.onclick = function () {
 			VT.mapManager.decreaseZoom();
 		};
-		if (VT.locationServices.LOCATION_SERVICES_ENABLED == true) {
-			alert("loc on!");
+		if (VT.locationServices.LOCATION_SERVICES_ENABLED) {
 			location_button.style["display"] = "inherit";
 			location_button.onclick = function () {
 				VT.locationServices.panToCurrentLocation();
