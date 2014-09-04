@@ -10,9 +10,9 @@ html, body {
 
 #map-container { 
 	height: 100%;
-	width: 100%;
 	position: relative;
 	margin: 0 auto;
+	overflow: auto;
 }
 
 #map-canvas {
@@ -32,12 +32,15 @@ html, body {
 	width: 60%; 
 	position: absolute;
 	top: 2%;
-	left: 50%;
-	margin-left: -30%;
 	font-family: 'ProximaNova-Regular';
 	color: #ffffff;
 	z-index: 2;
 	pointer-events: none;
+	max-width: 800px;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #control-bar {
@@ -169,21 +172,44 @@ background-position: -528px 0px
 	position: inherit;
 	display: none;
 	pointer-events: auto;
+	position: relative;
+	margin: 0 auto;
 }
 
 #next-video-window {
-	width: inherit;
-	max-width: 700px;
+	width: 100%;
 	height: inherit;
 	position: absolute;
-	background-color: rgba(150,255,255, 0.5);
+	background-color: rgba(50,50,50, 0.75);
 	text-align: center;
 	display: none;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+
+}
+
+#next-video-window ul {
+	margin-top: 25%;
 }
 
 #next-video-window li{
-	margin-top: 30%;
 	display: inline-block;
+	font-family: 'ProximaNova-Bold', Helvetica Neue, Helvetica, sans-serif;
+	text-transform: uppercase;
+	font-size: .75em;
+	line-height: 450%;
+	background: url('../images/control-bar-sprite.png') top left no-repeat;
+	padding: 2em 0;
+	
+}
+#next-video-window li:first-child {
+	margin-right: 15px;
+	background-position: -599px 0;
+}
+
+#next-video-window li:last-child {
+	background-position: -698px 0;
 }
 
 #youtube-player-container {
@@ -376,7 +402,6 @@ background-color: #303030;
   }
   #main-controls-container  {
 		width: 96%;
-		margin-left: -48%;
 	}
 
 }
@@ -395,7 +420,6 @@ background-color: #303030;
 	}
 	#main-controls-container  {
 		width: 96%;
-		margin-left: -48%;
 	}
 	.stop-info-box {
 		font-size: 1.5em;
