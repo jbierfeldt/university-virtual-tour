@@ -30,8 +30,10 @@ VT.loader = function () {
 			VT.infoBoxManager.init();
 			google.maps.event.addListenerOnce(VT.mapManager.map, 'bounds_changed', function() {
 				VT.stopManager.updateSelectedMarker(VT.stopManager.stop_markers[0]);
-				if (!VT.settings.USER_IS_MOBILE) {
-					VT.displayManager.updateVideoDisplay();
+				VT.displayManager.updateVideoDisplay();
+				if (VT.settings.USER_IS_MOBILE) {
+					// If user is mobile, no display on first load
+					VT.displayManager.closeDisplay();
 				}
 			});
 		}
