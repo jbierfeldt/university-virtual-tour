@@ -540,6 +540,31 @@
 ]
 },
 
+
+{"marker": {
+	"title": "Gordon Center for Integrative Sciences",
+	"description": "",
+	"lat": 41.791443,
+	"lng": -87.603621
+},
+"video": "S1k86fWsmRE",
+"info": "The Ratner Athletic Center opened in 2002. It was designed with an extensive load-bearing cable and mast system which makes the building resemble a large sailing ship. Facilities for varsity athletics are located here, and the glass cases in the front entranceway hold, among other things, Jay Berwanger’s Heisman Trophy, the first ever awarded.",
+"images": [
+    {"image":
+        {
+        "image_url": "/vt/images/slides/gcis1.png",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/gcis2.png",
+        "image_caption": ""
+        }
+    }
+]
+},
+
 {"marker": {
 	"title": "University of Chicago Hospitals and the Pritzker School of Medicine",
 	"description": "",

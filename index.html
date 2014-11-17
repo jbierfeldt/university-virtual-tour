@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="viewport" content="width=device-width, minimum-scale=0.4, maximum-scale=0.4, minimal-ui" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	
 	<meta name="author" content="">
 	<title>Google Map for iOS</title>
@@ -18,76 +18,78 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATUF6mOF6zWfNQK_oHhgJ3PMC44CGhA84&sensor=FALSE">
-</script>
-<script type='text/javascript' src="js/infobox.js"></script>
-<script type='text/javascript' src="js/JQuery.tubeplayer.min.js"></script>
-<script type='text/javascript' src="js/jquery.cycle2.min.js"></script>
-<script type='text/javascript' src="js/jquery.cycle2.swipe.min.js"></script>
-<script type='text/javascript' src="js/virtual-tour.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATUF6mOF6zWfNQK_oHhgJ3PMC44CGhA84&sensor=FALSE">
+      </script>
+      <script type='text/javascript' src="js/infobox.js"></script>
+      <script type='text/javascript' src="js/JQuery.tubeplayer.min.js"></script>
+      <script type='text/javascript' src="js/jquery.cycle2.min.js"></script>
+      <script type='text/javascript' src="js/jquery.cycle2.swipe.min.js"></script>
+      <script type='text/javascript' src="js/virtual-tour.js"></script>
 
 
-<script type="text/javascript">
-      google.maps.event.addDomListener(window, 'load', VT.loader.init);
-</script>
-</head>
+      <script type="text/javascript">
+      	google.maps.event.addDomListener(window, 'load', VT.loader.init);
+      </script>
+  </head>
 
-<body>	
-	<div id="map-container">
-		<div id="map-controls">
-			<div id="main-controls-container">
-				<div id="control-bar">
-					<div id="control-bar-title-container">
-						Select a stop on the map
-					</div>
-					<div id="control-bar-button-container">
-						<ul id="control-bar-menu" class="">
+  <body>	
+  	<div id="map-container">
+  		<div id="map-controls">
+  			<div id="main-controls-container">
+  				<div id="control-bar">
+  					<div id="control-bar-title-container">
+  						Select a stop on the map
+  					</div>
+  					<div id="control-bar-button-container">
+  						<ul id="control-bar-menu" class="">
 
-							<li id="video-btn" class="media"><a class="shadow"></a></li>
+  							<li id="video-btn" class="media"><a class="shadow"></a></li>
 
-							<li id="image-btn" class="media"><a class="shadow"></a></li>
+  							<li id="image-btn" class="media"><a class="shadow"></a></li>
 
-							<li id="info-btn" class="media"id="info-button"><a class="shadow"></a></li>
-							<li id="next-btn" class="locale" id="next-button"><a class="shadow"></a></li>
+  							<li id="info-btn" class="media"id="info-button"><a class="shadow"></a></li>
+  							<li id="next-btn" class="locale" id="next-button"><a class="shadow"></a></li>
 
-							<li id="toggle-btn" class="toggle-open"><a class="shadow"></a></li>
-						</ul>
-					</div>
+  							<li id="toggle-btn" class="toggle-open"><a class="shadow"></a></li>
+  						</ul>
+  					</div>
 
-				</div>
-				<div id="display-container">
-					<div id="video-display">
-						<div id="next-video-window">
-							<ul>
-								<li id="watch-again-btn">Watch Again</li>
-								<li id="next-video-btn">Next Video</li>
-							</ul>
-						</div>
-						<div id='youtube-player-container'></div>
-					</div>
-					<div id="image-display">
-    					<div class="cycle-slideshow" id="cycle-slideshow-div" data-cycle-fx="scrollHorz" data-cycle-loader="true" data-cycle-timeout="0" data-cycle-swipe="true" data-cycle-swipe-fx="scrollHorz" data-cycle-prev=".prev" data-cycle-next=".next" data-cycle-log="false" data-cycle-caption="#alt-caption" data-cycle-caption-template="{{alt}}"></div>
-    					<div id="alt-caption" class="center"></div>
-    					<div class="prev ss-standard ss-navigateleft left">Previous</div><br />
-    					<div class="next ss-standard ss-navigateright right">Next</div>
-					</div>
-					<div id="info-display"></div>
-				</div>
-			</div>
-			<div id="zoom-controls">
-			<ul>
-				<li id="inc-zoom-btn"><img src="images/plus_button.png" /></li>
-				<li id="dec-zoom-btn"><img src="images/minus_button.png" /></li>
-			</ul>
-			</div>
-			<div id="location-controls">
-			<ul>
-				<li id="cur-loc-btn"><img src="images/minus_button.png" /></li>
-			</ul>
-			</div>
-		</div>
-		<div id="map-canvas"/>
-	</div>
+  				</div>
+  				<div id="display-container">
+  					<div id="video-display">
+  						<div id="next-video-window">
+  							<ul>
+  								<li id="watch-again-btn">Watch Again</li>
+  								<li id="next-video-btn">Next Video</li>
+  							</ul>
+  						</div>
+  						<div id='youtube-player-container'></div>
+  					</div>
+  					<div id="image-display">
+  						<div class="cycle-slideshow" id="cycle-slideshow-div" data-cycle-fx="scrollHorz" data-cycle-loader="true" data-cycle-timeout="0" data-cycle-swipe="true" data-cycle-swipe-fx="scrollHorz" data-cycle-prev=".prev" data-cycle-next=".next" data-cycle-log="false" data-cycle-caption="#alt-caption" data-cycle-caption-template="{{alt}}"></div>
+  						<div id="alt-caption" class="center"></div>
+  						<div class="prev ss-icon">Previous</div><br />
+  						<div class="next ss-icon">Next</div>
+  					</div>
+  					<div id="info-display"></div>
+  				</div>
+  			</div>
+  			<div id="zoom-controls">
+  				<ul>
+  					<li id="inc-zoom-btn"><img src="images/plus_button.png" /></li>
+  					<li id="dec-zoom-btn"><img src="images/minus_button.png" /></li>
+  				</ul>
+  			</div>
+  			<div id="location-controls">
+  				<ul>
+  					<li id="cur-loc-btn"><img src="images/minus_button.png" /></li>
+  				</ul>
+  			</div>
+  		</div>
+
+  		<div id="map-canvas"/>
+  	</div>
+  </div>
 </body>
 </html>

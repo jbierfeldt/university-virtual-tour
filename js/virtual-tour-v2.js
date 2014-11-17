@@ -40,7 +40,6 @@ VT.loader = function () {
 	};
 }();
 
-
 VT.markerManager = function () {
 	"use strict";
 
@@ -72,12 +71,11 @@ VT.markerManager = function () {
 			// URL
 			'images/unselected_marker.png',
 			// (width,height)
-			new google.maps.Size( 50, 87 ),
+			new google.maps.Size( 36, 63 ),
 			// The origin point (x,y)
 			new google.maps.Point( 0, 0 ),
 			// The anchor point (x,y)
-			new google.maps.Point( 25, 87 )
-
+			new google.maps.Point( 18, 63 )
 		),
 		selected: new google.maps.MarkerImage(
 			// URL
@@ -93,7 +91,7 @@ VT.markerManager = function () {
 			// URL
 			'images/current_marker.png',
 			// (width,height)
-			new google.maps.Size( 51, 65 ),
+			new google.maps.Size( 22, 22 ),
 			// The origin point (x,y)
 			new google.maps.Point( 0, 0 ),
 			// The anchor point (x,y)
@@ -110,7 +108,6 @@ VT.markerManager = function () {
 				position: position,
 				map: VT.mapManager.map,
 				icon: icon_selection,
-
 				title: title
 			});
 			this.markers.push(marker);
@@ -514,13 +511,10 @@ VT.mapManager = function () {
 
     //TODO get from JSON
     featureOpts = [
-
-//
-
 		{
 		    featureType: 'building',
 		    "stylers": [
-		    	{ "color": "#e7e8e5" },
+		    	{ "color": "#f2f0e9" },
 		    	{ "weight": "1" },
 		    	{ "visibility": "on" },
 		    ]
@@ -543,7 +537,7 @@ VT.mapManager = function () {
 		    featureType: "poi",
 		    elementType: "geometry",
 		    "stylers": [
-		    	{ "color": "#cbcbbe" },
+		    	{ "color": "#d1d6c7" },
 		    	{ "strokeColor": "ff00ff"},
 		    ]
 		},
@@ -571,7 +565,7 @@ VT.mapManager = function () {
 		{
 		    featureType: 'road.highway',
 		    "stylers": [
-		    	{ "color": "#666666" },
+		    	{ "color": "#aeada3" },
 		    ]
 		},
 		{
@@ -583,10 +577,21 @@ VT.mapManager = function () {
 		{
 		    featureType: "road.local",
 		    "stylers": [
-		    	{ "color": "#ffffff" },
-		    	{ "weight": "1" },
+		    	{ "color": "#aeada3" },
+		    	{ "weight": "3" },
+		    	{"stroke" : "#cbcbbe"},
 		    ]
 		},
+
+		{
+		    featureType: "road.local",
+		    elementType: "geometry.stroke",
+		    "stylers": [
+		    	{ "color": "#999999" },
+		    	{ "weight": ".5" },
+		    ]
+		},
+
 		{
 		    featureType: "water",
 		    "stylers": [
@@ -604,7 +609,7 @@ VT.mapManager = function () {
     	container_height = document.getElementById('map-container').clientHeight;
 		//If the top bar is open, should pan to under. If not, should pan to center.
 		//Offset target Latlng point by 1/4 of the height of the viewport
-		VT.mapManager.map.panTo(offsetLatlng(marker.position,0,(-(container_height/2.75))));
+		VT.mapManager.map.panTo(offsetLatlng(marker.position,0,(-(container_height/4))));
 	};
 		
 	//Function used to offset target Latlng by pixels
