@@ -1,4 +1,22 @@
-[{"marker": {
+[
+{"marker": {
+    "title": "Introduction",
+    "description": "Welcome to the Tour",
+    "lat": 41.789072,
+    "lng": -87.59916
+},
+"video": "DjfHntsOhF4",
+"info": "Welcome to the UChicago Tour. Please use the control bar above to navigate your way through the tour stops.",
+"images": [
+    {"image":
+        {
+        "image_url": "",
+        "image_caption": "No images for this stop."
+        }
+    }
+]
+},
+{"marker": {
 	"title": "Rosenwald Hall",
 	"description": "Admissions Office",
 	"lat": 41.789072,
@@ -27,6 +45,7 @@
     }
 ]
 },
+
 {"marker": {
 	"title": "Walker Museum",
 	"description": "Financial Aid Office",
@@ -63,10 +82,10 @@
 ]
 },
 {"marker": {
-	"title": "Main Quadrangle",
-	"description": "Center of Campus",
-	"lat": 41.789581,
-	"lng": -87.599658
+    "title": "Main Quadrangle",
+    "description": "Center of Campus",
+    "lat": 41.789581,
+    "lng": -87.599658
 },
 "video": "YrtQXGNSdjg",
 "info": "Lots of cool stuff happening here. You can ocassionsally find squirrels here.",
@@ -267,7 +286,7 @@
 	"lat": 41.791346,
 	"lng": -87.598348
 },
-"video": "Zce-QT7MGSE",
+"video": "",
 "info": "The Reynolds Club is the center of on-campus extra-curricular activities for students. Not only is the Office of the Reynolds Club of Student Activities located in the basement, but there are two theaters used for student productions, a student run coffee shop, and the office of WHPK, the University’s radio station.",
 "images": [
     {"image":
@@ -303,35 +322,6 @@
 	"lng": -87.599698
 },
 "video": "F05xSSCWRpA",
-"info": "Regenstein Library, referred to as “The Reg” by virtually everyone, was the largest building on campus when it was built in 1970. Originally it was intended only for graduate students at the University, but eventually undergrads were allowed access, and the Reg became the de facto locus of studying for all students. The Joe and Riva Mansueto Library, which opened in 2011, offers students a silent study space, and houses thousands of volumes in a massive filing system underground.",
-"images": [
-    {"image":
-        {
-        "image_url": "/vt/images/slides/reg1.jpt",
-        "image_caption": ""
-        }
-    },
-    {"image":
-        {
-        "image_url": "/vt/images/slides/reg2.jpg",
-        "image_caption": ""
-        }
-    },
-    {"image":
-        {
-        "image_url": "/vt/images/slides/reg3.jpg",
-        "image_caption": ""
-        }
-    }
-]
-},
-{"marker": {
-    "title": "Mansueto Library",
-    "description": "Special Collections Library",
-    "lat": 41.791472,
-    "lng": -87.601176
-},
-"video": "0HjfSvyPHFo",
 "info": "Regenstein Library, referred to as “The Reg” by virtually everyone, was the largest building on campus when it was built in 1970. Originally it was intended only for graduate students at the University, but eventually undergrads were allowed access, and the Reg became the de facto locus of studying for all students. The Joe and Riva Mansueto Library, which opened in 2011, offers students a silent study space, and houses thousands of volumes in a massive filing system underground.",
 "images": [
     {"image":
@@ -511,6 +501,35 @@
     {"image":
         {
         "image_url": "/vt/images/slides/ratner2.jpg",
+        "image_caption": ""
+        }
+    }
+]
+},
+{"marker": {
+    "title": "Mansueto Library",
+    "description": "Special Collections Library",
+    "lat": 41.791472,
+    "lng": -87.601176
+},
+"video": "0HjfSvyPHFo",
+"info": "Regenstein Library, referred to as “The Reg” by virtually everyone, was the largest building on campus when it was built in 1970. Originally it was intended only for graduate students at the University, but eventually undergrads were allowed access, and the Reg became the de facto locus of studying for all students. The Joe and Riva Mansueto Library, which opened in 2011, offers students a silent study space, and houses thousands of volumes in a massive filing system underground.",
+"images": [
+    {"image":
+        {
+        "image_url": "/vt/images/slides/reg1.jpt",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/reg2.jpg",
+        "image_caption": ""
+        }
+    },
+    {"image":
+        {
+        "image_url": "/vt/images/slides/reg3.jpg",
         "image_caption": ""
         }
     }

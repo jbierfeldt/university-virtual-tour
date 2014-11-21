@@ -137,6 +137,15 @@ transform:rotate(180deg);
 	pointer-events: auto;
 }
 
+#no-display {
+	margin: 1em 3em;
+	position: inherit;
+	display: none;
+	overflow-y: scroll;
+	pointer-events: auto;
+}
+
+
 #info-display p {
 	margin: 0px;
 	padding: 1% 10%;
@@ -144,6 +153,8 @@ transform:rotate(180deg);
 	line-height: 180%;
 }
 
+
+/* 
 
 #image-display {
 	height: 100%;
@@ -155,13 +166,11 @@ transform:rotate(180deg);
 }
 
 #image-display img {
-	/* height: 100%; */
-	width: 100%;
+	width: 80%;
 	margin: 2%;
 	left:  auto;
-	/* right: 50%; */
-	/* margin-right: -13%; */
 }
+*/
 
 #control-bar-title-container{
 	display: block; 

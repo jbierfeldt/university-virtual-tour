@@ -110,7 +110,6 @@ VT.markerManager = function () {
 				position: position,
 				map: VT.mapManager.map,
 				icon: icon_selection,
-
 				title: title
 			});
 			this.markers.push(marker);
@@ -401,6 +400,7 @@ VT.stopManager = function ($) {
 			nextMarker = VT.stopManager.stop_markers[0];
 		}
 		updateSelectedMarker(nextMarker);
+
 	};
 
 	previousStopMarker = function (marker) {
@@ -520,10 +520,33 @@ VT.mapManager = function () {
 		{
 		    featureType: 'building',
 		    "stylers": [
-		    	{ "color": "#e7e8e5" },
-		    	{ "weight": "1" },
+		    	{ "color": "#b9b9ad" },
+		    	{ "weight": "4" },
 		    	{ "visibility": "on" },
 		    ]
+		},
+		{
+			featureType: 'landscape',
+			elementType: 'geometry.fill',
+			"stylers": [
+				{"color": "#e7e8e5"}
+				
+			]
+		},
+		{
+			featureType: 'landscape',
+			elementType: 'geometry.stroke',
+			"stylers": [
+				{"color": "#c6c7c4"},
+				{"weight": ".1"}
+			]
+		},
+		{
+			featureType: 'poi.sports_complex',
+			elementType: 'geometry.fill',
+			"stylers": [
+				{"color": "#b9b9ad"}
+			]
 		},
 		{
 		    featureType: 'transit',
@@ -535,16 +558,15 @@ VT.mapManager = function () {
 		{
 		    featureType: "poi",
 		    elementType: "labels",
-		    stylers: [
-		    	{ "visibility": "off" },
+		    "stylers": [
+		    	{ "visibility": "off" }
 		    ]		  
 		},
 		{
 		    featureType: "poi",
 		    elementType: "geometry",
 		    "stylers": [
-		    	{ "color": "#cbcbbe" },
-		    	{ "strokeColor": "ff00ff"},
+		    	{ "color": "#cbcbbe" }
 		    ]
 		},
 		{
@@ -592,7 +614,22 @@ VT.mapManager = function () {
 		    "stylers": [
 		    	{ "color": "#87b0c3" },
 		    ]
+		},
+		{
+		    featureType: "poi.park",
+		    elementType: "geometry",
+		    "stylers": [
+		    	{ "color": "#adbd9f" },
+		    ]
+		},
+		{
+		    featureType: "road.highway",
+		    elementType: "labels",
+		    "stylers": [
+		    	{ "visibility": "off" }
+		    ]		
 		}
+
 	];
 
 	styledMapOptions = {
@@ -672,9 +709,9 @@ VT.mapManager = function () {
 
 VT.displayManager = function () {
 	var getElements, updateTitle, toggleDisplay, closeDisplay, openDisplay, setDisplay, updateDisplay,
-	updateVideoDisplay, updateImageDisplay, updateInfoDisplay, toggleButton, engageControls, disengageControls,
+	updateVideoDisplay, updateImageDisplay, updateInfoDisplay, updateNoDisplay, toggleButton, engageControls, disengageControls,
 	addClickEvents, map_container, main_controls, control_title, display_controls, video_display,
-	image_display, info_display, youtube_player, slideShow, toggle_button, control_engagement,
+	image_display, info_display, no_display, youtube_player, slideShow, toggle_button, control_engagement,
 	next_video_window;
 
 	getElements = function () {
@@ -685,6 +722,7 @@ VT.displayManager = function () {
         video_display = document.getElementById('video-display');
         image_display = document.getElementById('image-display');
         info_display = document.getElementById('info-display');
+        no_display = document.getElementById('no-display');
         youtube_player = document.getElementById('youtube-player-container');
         slideShow = document.getElementById("cycle-slideshow-div");
         toggle_button = document.getElementById("toggle-btn");
@@ -747,6 +785,7 @@ VT.displayManager = function () {
 		info_display.style["display"] = "none";
 		image_display.style["display"] = "none";
 		video_display.style["display"] = "none";
+		no_display.style["display"] = "none";
 
 		display_mode.style["display"] = "inherit";
 		VT.displayManager.current_display = display_mode;
@@ -762,21 +801,34 @@ VT.displayManager = function () {
 		}
 		if (VT.displayManager.current_display == video_display) {
 			updateVideoDisplay();
+		}
+		if (VT.displayManager.current_display == no_display) {
+			updateVideoDisplay();
 		} 
 	};
 
 	updateVideoDisplay = function () {
 		var index;
-		if (VT.stopManager.selected_marker != null) {
+		if (VT.stopManager.selected_marker.title == "Reynolds Club"){
+			setDisplay(no_display);
+			$('#control-bar-menu > li').removeClass('active');
+			$($('#video-btn').removeClass('active'));
+		}
+		else if (VT.stopManager.selected_marker != null) {
+			setDisplay(video_display);
 			index = VT.stopManager.stop_markers.indexOf(
 				VT.stopManager.selected_marker
 			);
 			$("#youtube-player-container").tubeplayer("cue", VT.loader.stop_data[index].video);
-			setDisplay(video_display);
 			$('#control-bar-menu > li').removeClass('active');
 			$($('#video-btn').addClass('active'));
 		}
+
 	};
+
+	updateNoDisplay = function() {
+		//console.log("this is something");
+	}
 
 	updateImageDisplay = function () {
 		var index, newSlide;
@@ -792,9 +844,11 @@ VT.displayManager = function () {
 			$(slideShow).cycle('reinit');
 			// Add new slides
 			for (var i = 0; i < VT.loader.stop_data[index].images.length; i++) {
+
 				newSlide = document.createElement("img");
 				newSlide.src = VT.loader.stop_data[index].images[i].image.image_url;
 				newSlide.alt = VT.loader.stop_data[index].images[i].image.image_caption;
+
 				$(slideShow).cycle('add', newSlide);
 			}
 			setDisplay(image_display);
@@ -860,6 +914,7 @@ VT.displayManager = function () {
 		};
 		next_button.onclick = function () {
 			VT.stopManager.nextStopMarker(VT.stopManager.selected_marker);
+
 		};
 		toggle_button.onclick = function () {
 			// disable toggle button if no marker is selected
@@ -928,7 +983,7 @@ VT.displayManager = function () {
 		init: function() {
 			getElements();
 			$("#youtube-player-container").tubeplayer({
-                initialVideo: "6AYafYVqIOY", // the video that is loaded into the player
+                initialVideo: "DjfHntsOhF4", // the video that is loaded into the player
                 preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
                 onPlayerEnded: function(){
                 	next_video_window.style["display"] = "inherit";

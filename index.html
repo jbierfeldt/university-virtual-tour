@@ -25,6 +25,7 @@
       <script type='text/javascript' src="js/JQuery.tubeplayer.min.js"></script>
       <script type='text/javascript' src="js/jquery.cycle2.min.js"></script>
       <script type='text/javascript' src="js/jquery.cycle2.swipe.min.js"></script>
+      <script type='text/javascript' src="js/jquery.cycle.center.min.js"></script>
       <script type='text/javascript' src="js/virtual-tour.js"></script>
 
 
@@ -67,12 +68,14 @@
   						<div id='youtube-player-container'></div>
   					</div>
   					<div id="image-display">
-  						<div class="cycle-slideshow" id="cycle-slideshow-div" data-cycle-fx="scrollHorz" data-cycle-loader="true" data-cycle-timeout="0" data-cycle-swipe="true" data-cycle-swipe-fx="scrollHorz" data-cycle-prev=".prev" data-cycle-next=".next" data-cycle-log="false" data-cycle-caption="#alt-caption" data-cycle-caption-template="{{alt}}"></div>
+  						<div class="cycle-slideshow" id="cycle-slideshow-div" data-cycle-fx="scrollHorz" data-cycle-loader="true" data-cycle-timeout="0" data-cycle-swipe="true" data-cycle-swipe-fx="scrollHorz" data-cycle-prev=".prev" data-cycle-next=".next" data-cycle-center-horz="true" data-cycle-center-vert="true"data-cycle-log="false" data-cycle-caption="#alt-caption" data-cycle-caption-template="{{alt}}"></div>
   						<div id="alt-caption" class="center"></div>
   						<div class="prev ss-icon">Previous</div><br />
   						<div class="next ss-icon">Next</div>
   					</div>
-  					<div id="info-display"></div>
+            <div id="info-display"></div>
+  					<div id="no-display">Sorry. This media type is not available at this stop.</div>
+
   				</div>
   			</div>
   			<div id="zoom-controls">
