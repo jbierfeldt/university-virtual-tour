@@ -1,4 +1,3 @@
-// Building BF_QUIZ Module according to the principles outlined here: http://yuiblog.com/blog/2007/06/12/module-pattern/
 var VT = {};
 
 VT.settings = function () {
@@ -153,11 +152,6 @@ VT.locationServices = function () {
 	sw_bound = new google.maps.LatLng(41.780332,-87.605882);
 	bounds = new google.maps.LatLngBounds(sw_bound, ne_bound);
 
-	geo_options = {
-		enableHighAccuracy: true, 
-		maximumAge        : 3, 
-	};
-
 	setCurrentLocationMarker = function setCurrentLocationMarker(pos) {
 		var user_location, currentLocationMarker;
 		// Get User's location from "pos" callback passed from geolocation
@@ -175,28 +169,32 @@ VT.locationServices = function () {
 				position.coords.longitude)) == true)
 		{
 			setCurrentLocationMarker(position);
-			// watchCurrentLocation();
-			// console.log("tracking location");
+			watchCurrentLocation();
+/* 			console.log("tracking location"); */
 			VT.locationServices.LOCATION_SERVICES_ENABLED = true;
 		} else {
-			// console.log("not tracking location (outside of bounds)");
+			console.log("not tracking location (outside of bounds)");
 		}
 	};
 
 	watchCurrentLocation = function watchCurrentLocation() {
-		var positionTimer, me;
+		var positionTimer;
 		positionTimer = navigator.geolocation.watchPosition(
-			function (position) {
-				setMarkerPosition(
-					currentLocationMarker,
-					position
-					);
-				me = new google.maps.LatLng(
-					position.coords.latitude,
-					position.coords.longitude
-					);
-				CURRENT_ORIGIN = me;
-			});
+		    function (pos) {
+		        VT.locationServices.current_location = new google.maps.LatLng(
+                    pos.coords.latitude,
+                    pos.coords.longitude
+                );
+    		    VT.markerManager.setMarkerPosition(VT.locationServices.current_location_marker, VT.locationServices.current_location);
+		    },
+		    function (err) {
+    		    console.log(err);
+		    },
+		    {
+                enableHighAccuracy: true,
+                maximumAge: 2
+            }
+		);
 	};
 
 	panToCurrentLocation = function panToCurrentLocation() {
@@ -213,12 +211,13 @@ VT.locationServices = function () {
         init: function() {
         	if (VT.settings.USER_IS_MOBILE) {
                 if (navigator.geolocation) {
+                    console.log("geoloc");
                 	navigator.geolocation.getCurrentPosition(
                 		displayAndWatchCurrentLocation, null, geo_options
                 	);
                 }
             }
-        	// console.log("loaded locationServices");
+/*         	console.log("loaded locationServices"); */
         }
     };
 
